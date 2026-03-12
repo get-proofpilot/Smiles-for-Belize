@@ -1,0 +1,884 @@
+/* ═══════════════════════════════════════════════════════
+   SMILES FOR BELIZE — Brand Canvas Stylesheet
+   A mood board, not a style guide.
+   ═══════════════════════════════════════════════════════ */
+
+/* --- Design Tokens --- */
+:root {
+  --royal:    #1B3A8C;
+  --bright:   #2563EB;
+  --teal:     #0D9488;
+  --sand:     #F5E6D3;
+  --sand-light: #FAF7F2;
+  --gold:     #D4A96A;
+  --charcoal: #2D2A26;
+  --charcoal-soft: #4A4543;
+}
+
+/* --- Font Families --- */
+.font-dm-serif     { font-family: 'DM Serif Display', Georgia, serif; }
+.font-dm-sans      { font-family: 'DM Sans', system-ui, sans-serif; }
+.font-playfair     { font-family: 'Playfair Display', Georgia, serif; }
+.font-source-sans  { font-family: 'Source Sans 3', system-ui, sans-serif; }
+.font-jakarta      { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.font-jakarta-bold { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; }
+
+
+/* ═══════════════════════════════════════════════════════
+   GLOBAL — The Canvas Base
+   ═══════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--sand);
+  color: var(--charcoal);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Subtle paper grain texture via CSS noise */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+}
+
+/* Section whisper labels */
+.section-whisper {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 3rem;
+  padding-left: 2rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   HERO — The Opening Moment
+   ═══════════════════════════════════════════════════════ */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.hero__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+.hero__glow--blue {
+  width: 60vw;
+  height: 60vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: var(--royal);
+  opacity: 0.08;
+  top: -10%;
+  left: -10%;
+}
+
+.hero__glow--warm {
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: var(--gold);
+  opacity: 0.06;
+  bottom: -10%;
+  right: -10%;
+}
+
+.hero__content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--royal);
+  margin-bottom: 1.5rem;
+}
+
+.hero__tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: var(--charcoal-soft);
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+}
+
+.hero__divider {
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+  margin: 0 auto 2rem;
+  border-radius: 2px;
+}
+
+.hero__subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--charcoal-soft);
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   COLOR MOOD — Color as Feeling
+   ═══════════════════════════════════════════════════════ */
+
+.color-mood {
+  padding: 8rem 2rem 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.color-collage {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(5, 100px);
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.color-block {
+  grid-column: var(--col);
+  grid-row: var(--row);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: rotate(var(--rotate));
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.color-block:hover {
+  transform: rotate(0deg) scale(1.02);
+  z-index: 10;
+}
+
+.color-block--royal   { background: var(--royal); color: white; }
+.color-block--bright   { background: var(--bright); color: white; }
+.color-block--teal     { background: var(--teal); color: white; }
+.color-block--sand     { background: var(--sand-light); color: var(--charcoal); border: 1px solid rgba(0,0,0,0.06); }
+.color-block--gold     { background: var(--gold); color: white; }
+.color-block--charcoal { background: var(--charcoal); color: var(--sand); }
+
+.color-block__phrase {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.color-block__hex {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+}
+
+/* Gradient bar */
+.color-gradient-bar {
+  height: 80px;
+  border-radius: 40px;
+  background: linear-gradient(
+    to right,
+    var(--royal) 0%,
+    var(--bright) 20%,
+    var(--teal) 40%,
+    var(--gold) 60%,
+    var(--sand) 80%,
+    var(--sand-light) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+}
+
+.color-gradient-bar__label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: white;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   TYPOGRAPHY MOOD — Type in Context
+   ═══════════════════════════════════════════════════════ */
+
+.type-mood {
+  padding: 8rem 2rem 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Big hero phrase */
+.type-hero-phrase {
+  margin-bottom: 6rem;
+  padding: 4rem 0;
+}
+
+.type-hero-phrase__text {
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 1.05;
+  color: var(--charcoal);
+  max-width: 900px;
+}
+
+/* 3 Pairings side by side */
+.type-pairings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-bottom: 6rem;
+}
+
+.type-pairing {
+  background: var(--sand-light);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+.type-pairing__label {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--royal);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--royal);
+  opacity: 0.6;
+}
+
+.type-pairing__display {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  color: var(--charcoal);
+  margin-bottom: 1.25rem;
+}
+
+.type-pairing__body {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--charcoal-soft);
+  margin-bottom: 1.5rem;
+}
+
+.type-pairing__fonts {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+/* Poster composition */
+.type-poster {
+  padding: 4rem 0;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.type-poster__word {
+  font-family: 'DM Serif Display', Georgia, serif;
+  line-height: 0.85;
+  display: block;
+}
+
+.type-poster__word--free {
+  font-size: clamp(4rem, 15vw, 12rem);
+  color: var(--royal);
+}
+
+.type-poster__word--dental {
+  font-size: clamp(3rem, 10vw, 8rem);
+  color: var(--bright);
+  opacity: 0.7;
+}
+
+.type-poster__word--clinics {
+  font-size: clamp(5rem, 18vw, 14rem);
+  color: var(--royal);
+  letter-spacing: -0.03em;
+}
+
+/* Type scale */
+.type-scale {
+  padding: 3rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.type-scale__row {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: var(--size);
+  line-height: 1.2;
+  color: var(--charcoal);
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   VOICE & TONE — The Brand Speaking
+   ═══════════════════════════════════════════════════════ */
+
+.voice-tone {
+  padding: 8rem 2rem 6rem;
+  position: relative;
+  min-height: 80vh;
+  overflow: hidden;
+}
+
+/* Watermark words */
+.voice-watermarks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.voice-watermark {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: clamp(4rem, 10vw, 8rem);
+  color: var(--royal);
+  opacity: 0.04;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+/* Collage of voice cards */
+.voice-collage {
+  position: relative;
+  min-height: 70vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.voice-card {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: rotate(var(--rotate));
+  max-width: 320px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.voice-card:hover {
+  transform: rotate(0deg) scale(1.03);
+  z-index: 10;
+}
+
+.voice-card--royal {
+  background: var(--royal);
+  color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(27, 58, 140, 0.2);
+}
+
+.voice-card--teal {
+  background: var(--teal);
+  color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(13, 148, 136, 0.2);
+}
+
+.voice-card--gold {
+  background: var(--gold);
+  color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(212, 169, 106, 0.2);
+}
+
+.voice-card--royal p,
+.voice-card--teal p,
+.voice-card--gold p {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+.voice-card--text {
+  padding: 1rem 0;
+}
+
+.voice-card--text p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--charcoal-soft);
+}
+
+.voice-card__big {
+  font-family: 'DM Serif Display', Georgia, serif !important;
+  font-size: 2rem !important;
+  color: var(--charcoal) !important;
+  line-height: 1.15 !important;
+}
+
+.voice-card--small p {
+  font-size: 0.9rem;
+  font-style: italic;
+  max-width: 280px;
+}
+
+.voice-card--cta p {
+  font-weight: 700;
+  color: var(--royal);
+  font-size: 1.1rem;
+}
+
+.voice-card__tagline {
+  font-family: 'DM Serif Display', Georgia, serif !important;
+  font-size: 1.5rem !important;
+  color: var(--royal) !important;
+  line-height: 1.3 !important;
+}
+
+.voice-card--vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.voice-card--vertical p {
+  font-size: 1.1rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   IMAGERY DIRECTION — Photography Mood
+   ═══════════════════════════════════════════════════════ */
+
+.imagery {
+  padding: 8rem 2rem 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.imagery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.polaroid {
+  background: white;
+  padding: 1rem 1rem 3rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transform: rotate(var(--rotate));
+  transition: transform 0.3s ease;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.polaroid__image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+/* Different warm gradient fills for each placeholder */
+.polaroid__image--warm-1 {
+  background: linear-gradient(135deg, var(--sand) 0%, var(--gold) 50%, var(--royal) 100%);
+  opacity: 0.4;
+}
+.polaroid__image--warm-2 {
+  background: linear-gradient(160deg, var(--gold) 0%, #E8A87C 50%, var(--royal) 100%);
+  opacity: 0.35;
+}
+.polaroid__image--warm-3 {
+  background: linear-gradient(120deg, var(--sand-light) 0%, var(--teal) 60%, var(--royal) 100%);
+  opacity: 0.3;
+}
+.polaroid__image--warm-4 {
+  background: linear-gradient(145deg, var(--gold) 0%, var(--bright) 100%);
+  opacity: 0.3;
+}
+.polaroid__image--warm-5 {
+  background: linear-gradient(170deg, var(--sand) 0%, var(--gold) 70%, var(--teal) 100%);
+  opacity: 0.35;
+}
+.polaroid__image--warm-6 {
+  background: linear-gradient(130deg, var(--sand-light) 0%, var(--royal) 100%);
+  opacity: 0.25;
+}
+
+.polaroid__caption {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--charcoal-soft);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Imagery notes */
+.imagery-notes {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.imagery-note {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--charcoal-soft);
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   PATTERN & MOTIFS — Visual Texture
+   ═══════════════════════════════════════════════════════ */
+
+.patterns {
+  padding: 8rem 2rem 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.pattern-swatch {
+  background: var(--sand-light);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.pattern-swatch__preview {
+  height: 180px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  background: var(--sand);
+}
+
+/* Smile arc preview */
+.smile-arc-svg {
+  width: 70%;
+  height: auto;
+}
+
+.smile-arc-svg--2 {
+  position: absolute;
+  transform: translateY(-15px) scale(0.85);
+}
+
+/* Wave preview */
+.wave-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Dots preview */
+.pattern-swatch__preview--dots {
+  background:
+    radial-gradient(circle at 15% 25%, var(--royal) 3px, transparent 3px),
+    radial-gradient(circle at 45% 15%, var(--bright) 2px, transparent 2px),
+    radial-gradient(circle at 75% 35%, var(--teal) 4px, transparent 4px),
+    radial-gradient(circle at 25% 65%, var(--royal) 2.5px, transparent 2.5px),
+    radial-gradient(circle at 55% 55%, var(--bright) 3px, transparent 3px),
+    radial-gradient(circle at 85% 75%, var(--teal) 2px, transparent 2px),
+    radial-gradient(circle at 35% 85%, var(--royal) 3.5px, transparent 3.5px),
+    radial-gradient(circle at 65% 80%, var(--bright) 2px, transparent 2px),
+    radial-gradient(circle at 10% 45%, var(--teal) 2px, transparent 2px),
+    radial-gradient(circle at 90% 50%, var(--royal) 2.5px, transparent 2.5px),
+    radial-gradient(circle at 50% 40%, var(--gold) 3px, transparent 3px),
+    radial-gradient(circle at 30% 30%, var(--teal) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 70% 60%, var(--royal) 2px, transparent 2px),
+    radial-gradient(circle at 20% 80%, var(--bright) 3px, transparent 3px),
+    radial-gradient(circle at 80% 20%, var(--gold) 2.5px, transparent 2.5px);
+  background-color: var(--sand);
+}
+
+/* Tooth preview */
+.tooth-svg {
+  width: 60px;
+  height: auto;
+}
+
+.pattern-swatch__label {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.25rem;
+  color: var(--charcoal);
+  margin-bottom: 0.5rem;
+}
+
+.pattern-swatch__desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--charcoal-soft);
+}
+
+/* Divider example */
+.pattern-divider-example {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.pattern-divider-example__label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--charcoal-soft);
+  opacity: 0.5;
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.pattern-divider-svg {
+  width: 100%;
+  height: 80px;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   EMOTIONAL TERRITORY — The Feeling Map
+   ═══════════════════════════════════════════════════════ */
+
+.emotional {
+  padding: 8rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.emotional__bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 7rem);
+  color: var(--royal);
+  opacity: 0.03;
+  white-space: nowrap;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.emotional__map {
+  position: relative;
+  min-height: 80vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.emotional__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.emotional__word {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  color: var(--color);
+  letter-spacing: 0.02em;
+}
+
+.emotional__word--lg {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 400;
+  animation: float-gentle 8s ease-in-out infinite;
+}
+
+.emotional__word--md {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.75rem);
+  font-weight: 500;
+  animation: float-gentle 10s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+.emotional__word--sm {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
+  font-weight: 400;
+  opacity: 0.6;
+  animation: float-gentle 12s ease-in-out infinite;
+  animation-delay: -6s;
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   CANVAS FOOTER — Closing Thought
+   ═══════════════════════════════════════════════════════ */
+
+.canvas-footer {
+  background: var(--royal);
+  color: var(--sand);
+  text-align: center;
+  padding: 8rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.canvas-footer__opening {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 1.5rem;
+  color: var(--sand-light);
+}
+
+.canvas-footer__closing {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.1rem;
+  color: var(--sand);
+  opacity: 0.7;
+  letter-spacing: 0.03em;
+}
+
+.canvas-footer__mark {
+  margin-top: 4rem;
+}
+
+.canvas-footer__tooth {
+  width: 40px;
+  height: auto;
+  opacity: 0.3;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Graceful degradation
+   ═══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .color-collage {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 80px);
+  }
+
+  .color-block {
+    grid-column: span 3 !important;
+    grid-row: span 1 !important;
+    transform: rotate(0deg);
+  }
+
+  .type-pairings {
+    grid-template-columns: 1fr;
+  }
+
+  .voice-collage {
+    min-height: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+
+  .voice-card {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: rotate(var(--rotate)) !important;
+    max-width: 100%;
+  }
+
+  .voice-watermark {
+    font-size: 3rem;
+  }
+
+  .imagery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .pattern-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .emotional__map {
+    min-height: 60vh;
+  }
+
+  .emotional__word--lg {
+    font-size: 2rem;
+  }
+
+  .emotional__word--md {
+    font-size: 1.1rem;
+  }
+}
