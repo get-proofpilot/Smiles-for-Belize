@@ -5,335 +5,428 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smiles for Belize — Brand Canvas</title>
 
-  <!-- Google Fonts: 3 pairings to compare -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display&family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display&family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 1: HERO — The Opening Moment
-       ═══════════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero__glow hero__glow--blue"></div>
-    <div class="hero__glow hero__glow--warm"></div>
-    <div class="hero__content">
-      <h1 class="hero__title">Smiles<br>for Belize</h1>
-      <p class="hero__tagline">Healthy teeth, happy life</p>
-      <div class="hero__divider"></div>
-      <p class="hero__subtitle">A brand canvas &mdash; the DNA of who we are</p>
+  <!-- ══════ TOOLBAR (FigJam-style bottom bar) ══════ -->
+  <div class="toolbar">
+    <div class="toolbar__inner">
+      <button class="toolbar__btn" data-tool="select" title="Select">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+      </button>
+      <button class="toolbar__btn toolbar__btn--active" data-tool="move" title="Pan">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l4-4 4 4M13 15l4 4 4-4M9 5v14M15 19V5"/></svg>
+      </button>
+      <div class="toolbar__sep"></div>
+      <button class="toolbar__btn" data-tool="sticky" title="Sticky Note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M15 3v6h6"/></svg>
+      </button>
+      <button class="toolbar__btn" data-tool="frame" title="Frame">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 2"/></svg>
+      </button>
+      <button class="toolbar__btn" data-tool="text" title="Text">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+      </button>
+      <button class="toolbar__btn" id="annotateBtn" title="Annotate selection (N)" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </button>
+      <div class="toolbar__sep"></div>
+      <div class="toolbar__zoom">
+        <button class="toolbar__zoom-btn" id="zoomOut" title="Zoom out">-</button>
+        <span class="toolbar__zoom-level" id="zoomLevel">100%</span>
+        <button class="toolbar__zoom-btn" id="zoomIn" title="Zoom in">+</button>
+      </div>
+      <div class="toolbar__sep"></div>
+      <button class="toolbar__btn" id="saveBtn" title="Save">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      </button>
+      <button class="toolbar__btn" id="briefBtn" title="Brief Claude">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+      </button>
+      <button class="toolbar__btn" id="exportBtn" title="Export JSON">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
     </div>
-  </section>
+  </div>
+
+  <!-- ══════ MINIMAP ══════ -->
+  <div class="minimap" id="minimap">
+    <div class="minimap__viewport" id="minimapViewport"></div>
+  </div>
+
+  <!-- ══════ THE CANVAS ══════ -->
+  <div class="canvas-wrapper" id="canvasWrapper">
+    <div class="canvas" id="canvas">
+
+      <!-- ══════ SVG CONNECTORS LAYER ══════ -->
+      <svg class="connectors" viewBox="0 0 5000 4200" preserveAspectRatio="none">
+        <!-- Hero to Colors -->
+        <path d="M 700 480 C 700 550, 400 580, 400 650" stroke="var(--gold)" stroke-width="2.5" fill="none" stroke-dasharray="8 6" opacity="0.4"/>
+        <circle cx="700" cy="480" r="4" fill="var(--gold)" opacity="0.4"/>
+        <circle cx="400" cy="650" r="4" fill="var(--gold)" opacity="0.4"/>
+
+        <!-- Hero to Typography -->
+        <path d="M 900 480 C 1100 550, 2200 550, 2400 650" stroke="var(--bright)" stroke-width="2.5" fill="none" stroke-dasharray="8 6" opacity="0.35"/>
+        <circle cx="900" cy="480" r="4" fill="var(--bright)" opacity="0.35"/>
+        <circle cx="2400" cy="650" r="4" fill="var(--bright)" opacity="0.35"/>
+
+        <!-- Colors to Voice -->
+        <path d="M 600 1550 C 600 1700, 500 1750, 500 1850" stroke="var(--teal)" stroke-width="2.5" fill="none" stroke-dasharray="8 6" opacity="0.35"/>
+        <circle cx="600" cy="1550" r="4" fill="var(--teal)" opacity="0.35"/>
+        <circle cx="500" cy="1850" r="4" fill="var(--teal)" opacity="0.35"/>
+
+        <!-- Typography to Patterns -->
+        <path d="M 2600 1650 C 2600 1800, 2500 1850, 2500 1950" stroke="var(--royal)" stroke-width="2.5" fill="none" stroke-dasharray="8 6" opacity="0.35"/>
+
+        <!-- Voice to Imagery -->
+        <path d="M 800 2900 C 900 3050, 400 3100, 400 3200" stroke="var(--gold)" stroke-width="2" fill="none" stroke-dasharray="6 5" opacity="0.3"/>
+
+        <!-- Patterns to Emotional -->
+        <path d="M 2700 2900 C 2700 3050, 2600 3100, 2500 3200" stroke="var(--teal)" stroke-width="2" fill="none" stroke-dasharray="6 5" opacity="0.3"/>
+
+        <!-- Central convergence to Emotional -->
+        <path d="M 1500 3200 C 1500 3350, 3800 3300, 3800 1400" stroke="var(--royal)" stroke-width="2" fill="none" stroke-dasharray="10 8" opacity="0.2"/>
+      </svg>
 
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 2: COLOR MOOD — Color as Feeling
-       ═══════════════════════════════════════════════════════ -->
-  <section class="color-mood">
-    <p class="section-whisper">color mood</p>
-
-    <div class="color-collage">
-      <div class="color-block color-block--royal" style="--rotate: -2deg; --col: 1 / 6; --row: 1 / 3;">
-        <span class="color-block__phrase">Trust, built one<br>visit at a time</span>
-        <span class="color-block__hex">#1B3A8C</span>
-      </div>
-      <div class="color-block color-block--bright" style="--rotate: 1.5deg; --col: 4 / 9; --row: 2 / 4;">
-        <span class="color-block__phrase">Energy that<br>moves forward</span>
-        <span class="color-block__hex">#2563EB</span>
-      </div>
-      <div class="color-block color-block--teal" style="--rotate: -1deg; --col: 8 / 13; --row: 1 / 3;">
-        <span class="color-block__phrase">Fresh starts,<br>open doors</span>
-        <span class="color-block__hex">#0D9488</span>
-      </div>
-      <div class="color-block color-block--sand" style="--rotate: 2deg; --col: 2 / 7; --row: 3 / 5;">
-        <span class="color-block__phrase">Warmth beneath<br>every moment</span>
-        <span class="color-block__hex">#F5E6D3</span>
-      </div>
-      <div class="color-block color-block--gold" style="--rotate: -1.5deg; --col: 6 / 11; --row: 4 / 6;">
-        <span class="color-block__phrase">A quiet glow<br>of optimism</span>
-        <span class="color-block__hex">#D4A96A</span>
-      </div>
-      <div class="color-block color-block--charcoal" style="--rotate: 1deg; --col: 10 / 13; --row: 3 / 5;">
-        <span class="color-block__phrase">Grounded.<br>Real.</span>
-        <span class="color-block__hex">#2D2A26</span>
-      </div>
-    </div>
-
-    <div class="color-gradient-bar">
-      <div class="color-gradient-bar__label">The full spectrum, breathing together</div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 3: TYPOGRAPHY MOOD — Type in Context
-       ═══════════════════════════════════════════════════════ -->
-  <section class="type-mood">
-    <p class="section-whisper">typography mood</p>
-
-    <!-- Big headline moment -->
-    <div class="type-hero-phrase">
-      <h2 class="type-hero-phrase__text font-dm-serif">Every child deserves a healthy smile</h2>
-    </div>
-
-    <!-- 3 Pairings Comparison -->
-    <div class="type-pairings">
-      <div class="type-pairing">
-        <span class="type-pairing__label">Pairing A: Warm & Human</span>
-        <h3 class="type-pairing__display font-dm-serif">Every child deserves a healthy smile</h3>
-        <p class="type-pairing__body font-dm-sans">Smiles for Belize is more than a campaign — it's a commitment to creating change where it's needed most. In too many of our communities, dental care is a luxury rather than a basic right. We're here to change that.</p>
-        <span class="type-pairing__fonts">DM Serif Display + DM Sans</span>
+      <!-- ═══════════════════════════════════════════════
+           FRAME: BRAND IDENTITY (top center)
+           ═══════════════════════════════════════════════ -->
+      <div class="frame frame--hero" style="left: 250px; top: 60px; width: 1200px;">
+        <span class="frame__label">Brand Identity</span>
+        <div class="frame__content" style="display:flex; align-items:center; justify-content:center; flex-direction:column; padding: 3rem;">
+          <h1 class="hero-title">Smiles<br>for Belize</h1>
+          <p class="hero-tagline">Healthy teeth, happy life</p>
+          <div class="hero-divider"></div>
+          <p class="hero-subtitle">A brand canvas &mdash; the DNA of who we are</p>
+        </div>
       </div>
 
-      <div class="type-pairing">
-        <span class="type-pairing__label">Pairing B: Editorial & Established</span>
-        <h3 class="type-pairing__display font-playfair">Every child deserves a healthy smile</h3>
-        <p class="type-pairing__body font-source-sans">Smiles for Belize is more than a campaign — it's a commitment to creating change where it's needed most. In too many of our communities, dental care is a luxury rather than a basic right. We're here to change that.</p>
-        <span class="type-pairing__fonts">Playfair Display + Source Sans 3</span>
+
+      <!-- ═══════════════════════════════════════════════
+           FRAME: COLOR PALETTE (left side)
+           ═══════════════════════════════════════════════ -->
+      <div class="frame frame--colors" style="left: 80px; top: 650px; width: 1050px;">
+        <span class="frame__label" style="background: var(--gold); color: white;">Color Palette</span>
+
+        <div class="frame__content" style="display:flex; flex-wrap:wrap; gap:20px; padding:2rem;">
+          <!-- Color stickies -->
+          <div class="sticky sticky--royal" style="transform:rotate(-2deg);">
+            <div class="sticky__color-swatch" style="background: var(--royal);"></div>
+            <p class="sticky__text">Trust, built one visit at a time</p>
+            <span class="sticky__meta">#1B3A8C &middot; Royal</span>
+          </div>
+          <div class="sticky sticky--blue" style="transform:rotate(1.5deg);">
+            <div class="sticky__color-swatch" style="background: var(--bright);"></div>
+            <p class="sticky__text">Energy that moves forward</p>
+            <span class="sticky__meta">#2563EB &middot; Bright</span>
+          </div>
+          <div class="sticky sticky--teal-note" style="transform:rotate(-1deg);">
+            <div class="sticky__color-swatch" style="background: var(--teal);"></div>
+            <p class="sticky__text">Fresh starts, open doors</p>
+            <span class="sticky__meta">#0D9488 &middot; Teal</span>
+          </div>
+          <div class="sticky sticky--sand-note" style="transform:rotate(2deg);">
+            <div class="sticky__color-swatch" style="background: var(--sand); border:1px solid rgba(0,0,0,0.1);"></div>
+            <p class="sticky__text">Warmth beneath every moment</p>
+            <span class="sticky__meta">#F5E6D3 &middot; Sand</span>
+          </div>
+          <div class="sticky sticky--gold-note" style="transform:rotate(-1.5deg);">
+            <div class="sticky__color-swatch" style="background: var(--gold);"></div>
+            <p class="sticky__text">A quiet glow of optimism</p>
+            <span class="sticky__meta">#D4A96A &middot; Gold</span>
+          </div>
+          <div class="sticky sticky--dark-note" style="transform:rotate(1deg);">
+            <div class="sticky__color-swatch" style="background: var(--charcoal);"></div>
+            <p class="sticky__text">Grounded. Real.</p>
+            <span class="sticky__meta">#2D2A26 &middot; Charcoal</span>
+          </div>
+        </div>
+
+        <!-- Gradient bar as a "sticky tape" strip -->
+        <div class="gradient-strip">
+          <div class="gradient-strip__bar"></div>
+          <span class="gradient-strip__label">The full spectrum, breathing together</span>
+        </div>
       </div>
 
-      <div class="type-pairing">
-        <span class="type-pairing__label">Pairing C: Modern & Clean</span>
-        <h3 class="type-pairing__display font-jakarta-bold">Every child deserves a healthy smile</h3>
-        <p class="type-pairing__body font-jakarta">Smiles for Belize is more than a campaign — it's a commitment to creating change where it's needed most. In too many of our communities, dental care is a luxury rather than a basic right. We're here to change that.</p>
-        <span class="type-pairing__fonts">Plus Jakarta Sans 800 + 400</span>
-      </div>
-    </div>
 
-    <!-- Poster composition -->
-    <div class="type-poster">
-      <div class="type-poster__word type-poster__word--free">FREE</div>
-      <div class="type-poster__word type-poster__word--dental">DENTAL</div>
-      <div class="type-poster__word type-poster__word--clinics">CLINICS</div>
-    </div>
+      <!-- ═══════════════════════════════════════════════
+           FRAME: TYPOGRAPHY (right side)
+           ═══════════════════════════════════════════════ -->
+      <div class="frame frame--type" style="left: 1250px; top: 650px; width: 1550px;">
+        <span class="frame__label" style="background: var(--bright); color: white;">Typography</span>
 
-    <!-- Type scale with real phrases -->
-    <div class="type-scale">
-      <div class="type-scale__row" style="--size: 4rem;">Restoring smiles</div>
-      <div class="type-scale__row" style="--size: 2.5rem;">Rebuilding confidence</div>
-      <div class="type-scale__row" style="--size: 1.75rem;">Redefining access</div>
-      <div class="type-scale__row" style="--size: 1.25rem;">Free clinics. School visits. Community partnerships. Lasting smiles.</div>
-      <div class="type-scale__row" style="--size: 1rem;">Join us as we plant the seeds of change, one smile at a time.</div>
-    </div>
-  </section>
+        <div class="frame__content" style="padding:2rem;">
+          <!-- Big type moment -->
+          <div class="type-hero-card">
+            <h2 class="font-dm-serif" style="font-size:clamp(2rem,5vw,3.5rem); line-height:1.05; color:var(--charcoal);">Every child deserves a healthy smile</h2>
+          </div>
 
+          <!-- Pairings as side-by-side sticky cards -->
+          <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:1.5rem;">
+            <div class="sticky sticky--pairing" style="flex:1; min-width:260px; transform:rotate(-1deg);">
+              <span class="sticky__badge" style="background:var(--royal);">A</span>
+              <span class="sticky__tag">Warm &amp; Human</span>
+              <h3 class="font-dm-serif" style="font-size:1.4rem; margin:0.75rem 0 0.5rem; line-height:1.2;">Every child deserves a healthy smile</h3>
+              <p class="font-dm-sans" style="font-size:0.85rem; line-height:1.6; color:var(--charcoal-soft);">Smiles for Belize is more than a campaign &mdash; it's a commitment to creating change where it's needed most.</p>
+              <span class="sticky__font-label">DM Serif Display + DM Sans</span>
+            </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 4: VOICE & TONE — The Brand Speaking
-       ═══════════════════════════════════════════════════════ -->
-  <section class="voice-tone">
-    <p class="section-whisper">voice &amp; tone</p>
+            <div class="sticky sticky--pairing" style="flex:1; min-width:260px; transform:rotate(0.5deg);">
+              <span class="sticky__badge" style="background:var(--teal);">B</span>
+              <span class="sticky__tag">Editorial &amp; Established</span>
+              <h3 class="font-playfair" style="font-size:1.4rem; margin:0.75rem 0 0.5rem; line-height:1.2;">Every child deserves a healthy smile</h3>
+              <p class="font-source-sans" style="font-size:0.85rem; line-height:1.6; color:var(--charcoal-soft);">Smiles for Belize is more than a campaign &mdash; it's a commitment to creating change where it's needed most.</p>
+              <span class="sticky__font-label">Playfair Display + Source Sans 3</span>
+            </div>
 
-    <!-- Watermark tone words -->
-    <div class="voice-watermarks">
-      <span class="voice-watermark" style="--x: 5%; --y: 10%;">WARM</span>
-      <span class="voice-watermark" style="--x: 60%; --y: 5%;">HUMAN</span>
-      <span class="voice-watermark" style="--x: 25%; --y: 55%;">HOPEFUL</span>
-      <span class="voice-watermark" style="--x: 70%; --y: 60%;">REAL</span>
-    </div>
+            <div class="sticky sticky--pairing" style="flex:1; min-width:260px; transform:rotate(1.5deg);">
+              <span class="sticky__badge" style="background:var(--gold);">C</span>
+              <span class="sticky__tag">Modern &amp; Clean</span>
+              <h3 class="font-jakarta-bold" style="font-size:1.4rem; margin:0.75rem 0 0.5rem; line-height:1.2;">Every child deserves a healthy smile</h3>
+              <p class="font-jakarta" style="font-size:0.85rem; line-height:1.6; color:var(--charcoal-soft);">Smiles for Belize is more than a campaign &mdash; it's a commitment to creating change where it's needed most.</p>
+              <span class="sticky__font-label">Plus Jakarta Sans 800 + 400</span>
+            </div>
+          </div>
 
-    <!-- Scattered quotes collage -->
-    <div class="voice-collage">
-      <div class="voice-card voice-card--royal" style="--rotate: -2deg; --x: 5%; --y: 8%;">
-        <p>Redefining access.<br>Rebuilding confidence.<br>Restoring smiles.</p>
-      </div>
+          <!-- Poster composition as a card -->
+          <div class="poster-card" style="margin-top:1.5rem;">
+            <div class="poster-card__word poster-card__word--free">FREE</div>
+            <div class="poster-card__word poster-card__word--dental">DENTAL</div>
+            <div class="poster-card__word poster-card__word--clinics">CLINICS</div>
+          </div>
 
-      <div class="voice-card voice-card--text" style="--rotate: 1deg; --x: 50%; --y: 2%;">
-        <p class="voice-card__big">Oral health is essential health</p>
-      </div>
-
-      <div class="voice-card voice-card--teal" style="--rotate: -1.5deg; --x: 55%; --y: 35%;">
-        <p>Your smile<br>matters here</p>
-      </div>
-
-      <div class="voice-card voice-card--text voice-card--small" style="--rotate: 2deg; --x: 2%; --y: 42%;">
-        <p>Meet Maria. She visited our Belize City clinic last month and left with a smile she's proud of.</p>
-      </div>
-
-      <div class="voice-card voice-card--gold" style="--rotate: -1deg; --x: 30%; --y: 62%;">
-        <p>One smile<br>at a time</p>
+          <!-- Type scale strip -->
+          <div class="type-scale-strip" style="margin-top:1.5rem;">
+            <div class="type-scale-strip__row" style="font-size:2.5rem;">Restoring smiles</div>
+            <div class="type-scale-strip__row" style="font-size:1.75rem;">Rebuilding confidence</div>
+            <div class="type-scale-strip__row" style="font-size:1.25rem;">Redefining access</div>
+            <div class="type-scale-strip__row" style="font-size:0.95rem;">Free clinics. School visits. Community partnerships. Lasting smiles.</div>
+            <div class="type-scale-strip__row" style="font-size:0.8rem;">Join us as we plant the seeds of change, one smile at a time.</div>
+          </div>
+        </div>
       </div>
 
-      <div class="voice-card voice-card--text voice-card--cta" style="--rotate: 1.5deg; --x: 65%; --y: 70%;">
-        <p>Join a clinic near you &rarr;</p>
+
+      <!-- ═══════════════════════════════════════════════
+           FRAME: VOICE & TONE (below colors)
+           ═══════════════════════════════════════════════ -->
+      <div class="frame frame--voice" style="left: 80px; top: 1850px; width: 1200px;">
+        <span class="frame__label" style="background: var(--teal); color: white;">Voice &amp; Tone</span>
+
+        <div class="frame__content" style="padding:2rem; position:relative;">
+          <!-- Tone keywords as scattered stickies -->
+          <div class="tone-word tone-word--lg" style="left:5%; top:8%;">WARM</div>
+          <div class="tone-word tone-word--lg" style="left:55%; top:3%;">HUMAN</div>
+          <div class="tone-word tone-word--lg" style="left:25%; top:55%;">HOPEFUL</div>
+          <div class="tone-word tone-word--lg" style="left:70%; top:50%;">REAL</div>
+
+          <!-- Voice cards as sticky notes -->
+          <div class="sticky sticky--royal-bg" style="transform:rotate(-2deg); width:280px;">
+            <p class="sticky__voice">Redefining access.<br>Rebuilding confidence.<br>Restoring smiles.</p>
+          </div>
+
+          <div class="sticky sticky--plain" style="transform:rotate(1deg); width:320px;">
+            <p class="sticky__voice-big">Oral health is essential health</p>
+          </div>
+
+          <div class="sticky sticky--teal-bg" style="transform:rotate(-1.5deg); width:240px;">
+            <p class="sticky__voice">Your smile<br>matters here</p>
+          </div>
+
+          <div class="sticky sticky--plain sticky--italic" style="transform:rotate(2deg); width:300px;">
+            <p class="sticky__voice-sm">Meet Maria. She visited our Belize City clinic last month and left with a smile she's proud of.</p>
+            <span class="sticky__tag-sm">Story format example</span>
+          </div>
+
+          <div class="sticky sticky--gold-bg" style="transform:rotate(-1deg); width:220px;">
+            <p class="sticky__voice">One smile<br>at a time</p>
+          </div>
+
+          <div class="sticky sticky--plain" style="transform:rotate(1.5deg); width:260px;">
+            <p class="sticky__voice-cta">Join a clinic near you &rarr;</p>
+            <span class="sticky__tag-sm">CTA style</span>
+          </div>
+
+          <div class="sticky sticky--royal-bg sticky--vertical" style="width:60px; height:220px;">
+            <p class="sticky__voice">Give the gift of a smile</p>
+          </div>
+
+          <div class="sticky sticky--plain" style="transform:rotate(-0.5deg); width:300px;">
+            <p class="sticky__voice-tagline">Smiles for Belize.<br>Because every smile counts.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="voice-card voice-card--royal voice-card--vertical" style="--rotate: 0deg; --x: 88%; --y: 15%;">
-        <p>Give the gift of a smile</p>
-      </div>
 
-      <div class="voice-card voice-card--text" style="--rotate: -0.5deg; --x: 10%; --y: 78%;">
-        <p class="voice-card__tagline">Smiles for Belize.<br>Because every smile counts.</p>
-      </div>
-    </div>
-  </section>
+      <!-- ═══════════════════════════════════════════════
+           FRAME: PATTERNS & MOTIFS (below typography)
+           ═══════════════════════════════════════════════ -->
+      <div class="frame frame--patterns" style="left: 1400px; top: 1950px; width: 1400px;">
+        <span class="frame__label" style="background: var(--charcoal); color: var(--sand);">Patterns &amp; Motifs</span>
 
+        <div class="frame__content" style="display:flex; flex-wrap:wrap; gap:20px; padding:2rem;">
+          <!-- Pattern swatches as cards -->
+          <div class="pattern-card" style="transform:rotate(-1deg);">
+            <div class="pattern-card__preview">
+              <svg viewBox="0 0 200 100" style="width:100%;height:100%;">
+                <path d="M 20 40 Q 100 110 180 40" stroke="var(--royal)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M 35 35 Q 100 95 165 35" stroke="var(--bright)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+              </svg>
+            </div>
+            <p class="pattern-card__name">Smile Arc</p>
+            <p class="pattern-card__desc">The universal curve &mdash; a smile, a bridge, a connection. Use as dividers, backgrounds, or accent elements.</p>
+          </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 5: IMAGERY DIRECTION — Photography Mood
-       ═══════════════════════════════════════════════════════ -->
-  <section class="imagery">
-    <p class="section-whisper">imagery direction</p>
+          <div class="pattern-card" style="transform:rotate(1.5deg);">
+            <div class="pattern-card__preview">
+              <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:100%;height:100%;">
+                <path d="M0 60 Q50 20 100 60 T200 60 T300 60 T400 60" stroke="var(--royal)" stroke-width="3" fill="none"/>
+                <path d="M0 80 Q50 40 100 80 T200 80 T300 80 T400 80" stroke="var(--teal)" stroke-width="2" fill="none" opacity="0.5"/>
+                <path d="M0 45 Q50 5 100 45 T200 45 T300 45 T400 45" stroke="var(--bright)" stroke-width="1.5" fill="none" opacity="0.3"/>
+              </svg>
+            </div>
+            <p class="pattern-card__name">Caribbean Wave</p>
+            <p class="pattern-card__desc">The sea and a smile share the same curve. Layered waves in brand blues for section transitions.</p>
+          </div>
 
-    <div class="imagery-grid">
-      <div class="polaroid" style="--rotate: -3deg;">
-        <div class="polaroid__image polaroid__image--warm-1"></div>
-        <p class="polaroid__caption">A child laughing at a school visit</p>
-      </div>
-      <div class="polaroid" style="--rotate: 2deg;">
-        <div class="polaroid__image polaroid__image--warm-2"></div>
-        <p class="polaroid__caption">Golden hour at a San Pedro clinic</p>
-      </div>
-      <div class="polaroid" style="--rotate: -1deg;">
-        <div class="polaroid__image polaroid__image--warm-3"></div>
-        <p class="polaroid__caption">Hands: dentist and patient, a moment of trust</p>
-      </div>
-      <div class="polaroid" style="--rotate: 2.5deg;">
-        <div class="polaroid__image polaroid__image--warm-4"></div>
-        <p class="polaroid__caption">The team gathering before a clinic day</p>
-      </div>
-      <div class="polaroid" style="--rotate: -2deg;">
-        <div class="polaroid__image polaroid__image--warm-5"></div>
-        <p class="polaroid__caption">A mother and child leaving, smiling</p>
-      </div>
-      <div class="polaroid" style="--rotate: 1.5deg;">
-        <div class="polaroid__image polaroid__image--warm-6"></div>
-        <p class="polaroid__caption">Dental tools — clean, warm light</p>
-      </div>
-    </div>
+          <div class="pattern-card" style="transform:rotate(-0.5deg);">
+            <div class="pattern-card__preview pattern-card__preview--dots"></div>
+            <p class="pattern-card__name">Community Dots</p>
+            <p class="pattern-card__desc">Scattered, organic, never perfectly aligned &mdash; like a community gathering. For card backgrounds and textures.</p>
+          </div>
 
-    <div class="imagery-notes">
-      <p class="imagery-note">&ldquo;Photography should feel like golden hour — warm, soft, real.&rdquo;</p>
-      <p class="imagery-note">&ldquo;Always people-first. Faces, hands, moments of connection.&rdquo;</p>
-      <p class="imagery-note">&ldquo;Never clinical. Never staged. Never stock-photo-perfect.&rdquo;</p>
-      <p class="imagery-note">&ldquo;Natural light. The beauty of Belize is the backdrop.&rdquo;</p>
-    </div>
-  </section>
+          <div class="pattern-card" style="transform:rotate(1deg);">
+            <div class="pattern-card__preview">
+              <svg viewBox="0 0 100 120" style="width:50px; height:auto; margin:auto;">
+                <path d="M30 10 Q30 0 40 0 L60 0 Q70 0 70 10 L72 50 Q72 65 65 80 Q58 95 55 110 Q53 120 50 120 Q47 120 45 110 Q42 95 35 80 Q28 65 28 50 Z" fill="var(--royal)" opacity="0.15"/>
+                <path d="M30 10 Q30 0 40 0 L60 0 Q70 0 70 10 L72 50 Q72 65 65 80 Q58 95 55 110 Q53 120 50 120 Q47 120 45 110 Q42 95 35 80 Q28 65 28 50 Z" stroke="var(--royal)" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <p class="pattern-card__name">Minimal Tooth</p>
+            <p class="pattern-card__desc">Abstract, geometric, never cartoony. A subtle brand mark for watermarks, patterns, and repeated textures.</p>
+          </div>
+        </div>
 
-
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 6: PATTERN & MOTIFS — Visual Texture
-       ═══════════════════════════════════════════════════════ -->
-  <section class="patterns">
-    <p class="section-whisper">pattern &amp; motifs</p>
-
-    <div class="pattern-grid">
-      <!-- Smile Arc -->
-      <div class="pattern-swatch">
-        <div class="pattern-swatch__preview pattern-swatch__preview--smile-arc">
-          <svg viewBox="0 0 200 100" class="smile-arc-svg">
-            <path d="M 20 40 Q 100 110 180 40" stroke="var(--royal)" stroke-width="4" fill="none" stroke-linecap="round"/>
-          </svg>
-          <svg viewBox="0 0 200 100" class="smile-arc-svg smile-arc-svg--2">
-            <path d="M 20 40 Q 100 110 180 40" stroke="var(--bright)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <!-- Section divider example -->
+        <div style="padding:1rem 2rem 2rem; text-align:center;">
+          <svg viewBox="0 0 1200 80" preserveAspectRatio="none" style="width:100%; height:50px;">
+            <path d="M0 60 Q300 0 600 60 T1200 60" stroke="var(--royal)" stroke-width="2" fill="none" opacity="0.2"/>
+            <path d="M0 50 Q300 10 600 50 T1200 50" stroke="var(--bright)" stroke-width="1.5" fill="none" opacity="0.12"/>
           </svg>
         </div>
-        <p class="pattern-swatch__label">Smile Arc</p>
-        <p class="pattern-swatch__desc">The universal curve — a smile, a bridge, a connection. Use as dividers, backgrounds, or accent elements.</p>
       </div>
 
-      <!-- Wave Pattern -->
-      <div class="pattern-swatch">
-        <div class="pattern-swatch__preview pattern-swatch__preview--wave">
-          <svg viewBox="0 0 400 120" preserveAspectRatio="none" class="wave-svg">
-            <path d="M0 60 Q50 20 100 60 T200 60 T300 60 T400 60" stroke="var(--royal)" stroke-width="3" fill="none"/>
-            <path d="M0 80 Q50 40 100 80 T200 80 T300 80 T400 80" stroke="var(--teal)" stroke-width="2" fill="none" opacity="0.5"/>
-            <path d="M0 45 Q50 5 100 45 T200 45 T300 45 T400 45" stroke="var(--bright)" stroke-width="1.5" fill="none" opacity="0.3"/>
+
+      <!-- ═══════════════════════════════════════════════
+           FRAME: IMAGERY DIRECTION (bottom left)
+           ═══════════════════════════════════════════════ -->
+      <div class="frame frame--imagery" style="left: 80px; top: 3100px; width: 1300px;">
+        <span class="frame__label" style="background: var(--gold); color: white;">Imagery Direction</span>
+
+        <div class="frame__content" style="padding:2rem;">
+          <div style="display:flex; flex-wrap:wrap; gap:20px; margin-bottom:1.5rem;">
+            <!-- Polaroids as photos -->
+            <div class="polaroid" style="transform:rotate(-3deg);">
+              <div class="polaroid__img" style="background: linear-gradient(135deg, var(--sand) 0%, var(--gold) 50%, var(--royal) 100%);"></div>
+              <p class="polaroid__cap">A child laughing at a school visit</p>
+            </div>
+            <div class="polaroid" style="transform:rotate(2deg);">
+              <div class="polaroid__img" style="background: linear-gradient(160deg, var(--gold) 0%, #E8A87C 50%, var(--royal) 100%);"></div>
+              <p class="polaroid__cap">Golden hour at a San Pedro clinic</p>
+            </div>
+            <div class="polaroid" style="transform:rotate(-1deg);">
+              <div class="polaroid__img" style="background: linear-gradient(120deg, var(--sand-light) 0%, var(--teal) 60%, var(--royal) 100%);"></div>
+              <p class="polaroid__cap">Hands: dentist and patient, a moment of trust</p>
+            </div>
+            <div class="polaroid" style="transform:rotate(2.5deg);">
+              <div class="polaroid__img" style="background: linear-gradient(145deg, var(--gold) 0%, var(--bright) 100%);"></div>
+              <p class="polaroid__cap">The team gathering before a clinic day</p>
+            </div>
+            <div class="polaroid" style="transform:rotate(-2deg);">
+              <div class="polaroid__img" style="background: linear-gradient(170deg, var(--sand) 0%, var(--gold) 70%, var(--teal) 100%);"></div>
+              <p class="polaroid__cap">A mother and child leaving, smiling</p>
+            </div>
+            <div class="polaroid" style="transform:rotate(1.5deg);">
+              <div class="polaroid__img" style="background: linear-gradient(130deg, var(--sand-light) 0%, var(--royal) 100%);"></div>
+              <p class="polaroid__cap">Dental tools &mdash; clean, warm light</p>
+            </div>
+          </div>
+
+          <!-- Photo direction notes as yellow stickies -->
+          <div style="display:flex; flex-wrap:wrap; gap:12px;">
+            <div class="sticky sticky--yellow sticky--sm" style="transform:rotate(-1deg);">&ldquo;Photography should feel like golden hour &mdash; warm, soft, real.&rdquo;</div>
+            <div class="sticky sticky--yellow sticky--sm" style="transform:rotate(1.5deg);">&ldquo;Always people-first. Faces, hands, moments of connection.&rdquo;</div>
+            <div class="sticky sticky--yellow sticky--sm" style="transform:rotate(-0.5deg);">&ldquo;Never clinical. Never staged. Never stock-photo-perfect.&rdquo;</div>
+            <div class="sticky sticky--yellow sticky--sm" style="transform:rotate(2deg);">&ldquo;Natural light. The beauty of Belize is the backdrop.&rdquo;</div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════
+           FRAME: EMOTIONAL TERRITORY (bottom right)
+           ═══════════════════════════════════════════════ -->
+      <div class="frame frame--emotional" style="left: 1500px; top: 3100px; width: 1300px;">
+        <span class="frame__label" style="background: var(--royal); color: white;">Emotional Territory</span>
+
+        <div class="frame__content" style="padding:2rem; position:relative; min-height:500px;">
+          <div class="emotional-bg-text">SMILES FOR BELIZE</div>
+
+          <!-- Word cloud as scattered stickies -->
+          <span class="emo-word emo-word--lg" style="left:10%; top:12%; color:var(--royal);">HOPE</span>
+          <span class="emo-word emo-word--lg" style="left:55%; top:6%; color:var(--gold);">WARMTH</span>
+          <span class="emo-word emo-word--lg" style="left:30%; top:60%; color:var(--royal);">COMMUNITY</span>
+
+          <span class="emo-word emo-word--md" style="left:72%; top:32%; color:var(--teal);">empowerment</span>
+          <span class="emo-word emo-word--md" style="left:5%; top:42%; color:var(--gold);">joy</span>
+          <span class="emo-word emo-word--md" style="left:45%; top:35%; color:var(--royal);">trust</span>
+          <span class="emo-word emo-word--md" style="left:80%; top:62%; color:var(--teal);">care</span>
+          <span class="emo-word emo-word--md" style="left:18%; top:75%; color:var(--bright);">access</span>
+
+          <span class="emo-word emo-word--sm" style="left:38%; top:20%; color:var(--charcoal);">grassroots</span>
+          <span class="emo-word emo-word--sm" style="left:62%; top:50%; color:var(--charcoal);">genuine</span>
+          <span class="emo-word emo-word--sm" style="left:15%; top:30%; color:var(--charcoal);">lasting</span>
+          <span class="emo-word emo-word--sm" style="left:73%; top:18%; color:var(--charcoal);">together</span>
+          <span class="emo-word emo-word--sm" style="left:48%; top:78%; color:var(--charcoal);">confidence</span>
+          <span class="emo-word emo-word--sm" style="left:85%; top:45%; color:var(--charcoal);">dignity</span>
+          <span class="emo-word emo-word--sm" style="left:3%; top:65%; color:var(--charcoal);">resilient</span>
+
+          <!-- Connection lines -->
+          <svg class="emo-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <line x1="15" y1="18" x2="48" y2="38" stroke="var(--royal)" stroke-width="0.3" opacity="0.25" stroke-dasharray="2 2"/>
+            <line x1="58" y1="10" x2="48" y2="38" stroke="var(--gold)" stroke-width="0.3" opacity="0.25" stroke-dasharray="2 2"/>
+            <line x1="48" y1="38" x2="35" y2="64" stroke="var(--royal)" stroke-width="0.3" opacity="0.25" stroke-dasharray="2 2"/>
+            <line x1="75" y1="35" x2="48" y2="38" stroke="var(--teal)" stroke-width="0.2" opacity="0.2" stroke-dasharray="2 2"/>
           </svg>
         </div>
-        <p class="pattern-swatch__label">Caribbean Wave</p>
-        <p class="pattern-swatch__desc">The sea and a smile share the same curve. Layered waves in brand blues for section transitions.</p>
       </div>
 
-      <!-- Organic Dots -->
-      <div class="pattern-swatch">
-        <div class="pattern-swatch__preview pattern-swatch__preview--dots"></div>
-        <p class="pattern-swatch__label">Community Dots</p>
-        <p class="pattern-swatch__desc">Scattered, organic, never perfectly aligned — like a community gathering. For card backgrounds and textures.</p>
-      </div>
 
-      <!-- Tooth Shape -->
-      <div class="pattern-swatch">
-        <div class="pattern-swatch__preview pattern-swatch__preview--tooth">
-          <svg viewBox="0 0 100 120" class="tooth-svg">
-            <path d="M30 10 Q30 0 40 0 L60 0 Q70 0 70 10 L72 50 Q72 65 65 80 Q58 95 55 110 Q53 120 50 120 Q47 120 45 110 Q42 95 35 80 Q28 65 28 50 Z" fill="var(--royal)" opacity="0.15"/>
-            <path d="M30 10 Q30 0 40 0 L60 0 Q70 0 70 10 L72 50 Q72 65 65 80 Q58 95 55 110 Q53 120 50 120 Q47 120 45 110 Q42 95 35 80 Q28 65 28 50 Z" stroke="var(--royal)" stroke-width="2" fill="none"/>
+      <!-- ═══════════════════════════════════════════════
+           FRAME: CLOSING (far right, floating)
+           ═══════════════════════════════════════════════ -->
+      <div class="frame frame--closing" style="left: 3100px; top: 900px; width: 500px;">
+        <span class="frame__label" style="background: var(--royal); color: var(--sand);">Closing Thought</span>
+        <div class="frame__content" style="padding:2.5rem; text-align:center; background:var(--royal); border-radius:0 0 12px 12px;">
+          <p style="font-family:'DM Serif Display',Georgia,serif; font-size:2rem; color:var(--sand-light); margin-bottom:1rem;">This is where it begins.</p>
+          <p style="font-family:'DM Sans',sans-serif; font-size:1rem; color:var(--sand); opacity:0.7;">A living brand, built one smile at a time.</p>
+          <svg viewBox="0 0 100 120" style="width:40px; margin-top:2rem; opacity:0.3;">
+            <path d="M30 10 Q30 0 40 0 L60 0 Q70 0 70 10 L72 50 Q72 65 65 80 Q58 95 55 110 Q53 120 50 120 Q47 120 45 110 Q42 95 35 80 Q28 65 28 50 Z" fill="var(--sand)"/>
           </svg>
         </div>
-        <p class="pattern-swatch__label">Minimal Tooth</p>
-        <p class="pattern-swatch__desc">Abstract, geometric, never cartoony. A subtle brand mark for watermarks, patterns, and repeated textures.</p>
       </div>
-    </div>
 
-    <!-- Divider example using smile arc -->
-    <div class="pattern-divider-example">
-      <p class="pattern-divider-example__label">As a section divider:</p>
-      <svg viewBox="0 0 1200 80" preserveAspectRatio="none" class="pattern-divider-svg">
-        <path d="M0 60 Q300 0 600 60 T1200 60" stroke="var(--royal)" stroke-width="2" fill="none" opacity="0.2"/>
-        <path d="M0 50 Q300 10 600 50 T1200 50" stroke="var(--bright)" stroke-width="1.5" fill="none" opacity="0.12"/>
-      </svg>
-    </div>
-  </section>
+    </div><!-- /canvas -->
+  </div><!-- /canvas-wrapper -->
 
-
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 7: EMOTIONAL TERRITORY — The Feeling Map
-       ═══════════════════════════════════════════════════════ -->
-  <section class="emotional">
-    <p class="section-whisper">emotional territory</p>
-
-    <div class="emotional__bg-text">SMILES FOR BELIZE</div>
-
-    <div class="emotional__map">
-      <!-- Primary -->
-      <span class="emotional__word emotional__word--lg" style="--x: 15%; --y: 20%; --color: var(--royal);">HOPE</span>
-      <span class="emotional__word emotional__word--lg" style="--x: 55%; --y: 12%; --color: var(--gold);">WARMTH</span>
-      <span class="emotional__word emotional__word--lg" style="--x: 35%; --y: 65%; --color: var(--royal);">COMMUNITY</span>
-
-      <!-- Secondary -->
-      <span class="emotional__word emotional__word--md" style="--x: 72%; --y: 38%; --color: var(--teal);">empowerment</span>
-      <span class="emotional__word emotional__word--md" style="--x: 8%; --y: 50%; --color: var(--gold);">joy</span>
-      <span class="emotional__word emotional__word--md" style="--x: 48%; --y: 40%; --color: var(--royal);">trust</span>
-      <span class="emotional__word emotional__word--md" style="--x: 82%; --y: 70%; --color: var(--teal);">care</span>
-      <span class="emotional__word emotional__word--md" style="--x: 22%; --y: 80%; --color: var(--bright);">access</span>
-
-      <!-- Tertiary -->
-      <span class="emotional__word emotional__word--sm" style="--x: 40%; --y: 25%; --color: var(--charcoal);">grassroots</span>
-      <span class="emotional__word emotional__word--sm" style="--x: 65%; --y: 55%; --color: var(--charcoal);">genuine</span>
-      <span class="emotional__word emotional__word--sm" style="--x: 18%; --y: 38%; --color: var(--charcoal);">lasting</span>
-      <span class="emotional__word emotional__word--sm" style="--x: 75%; --y: 22%; --color: var(--charcoal);">together</span>
-      <span class="emotional__word emotional__word--sm" style="--x: 50%; --y: 82%; --color: var(--charcoal);">confidence</span>
-      <span class="emotional__word emotional__word--sm" style="--x: 88%; --y: 52%; --color: var(--charcoal);">dignity</span>
-      <span class="emotional__word emotional__word--sm" style="--x: 5%; --y: 70%; --color: var(--charcoal);">resilient</span>
-
-      <!-- Connection lines (SVG) -->
-      <svg class="emotional__lines" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <line x1="20" y1="25" x2="50" y2="42" stroke="var(--royal)" stroke-width="0.15" opacity="0.3"/>
-        <line x1="58" y1="15" x2="50" y2="42" stroke="var(--gold)" stroke-width="0.15" opacity="0.3"/>
-        <line x1="50" y1="42" x2="38" y2="68" stroke="var(--royal)" stroke-width="0.15" opacity="0.3"/>
-        <line x1="75" y1="40" x2="50" y2="42" stroke="var(--teal)" stroke-width="0.15" opacity="0.2"/>
-        <line x1="38" y1="68" x2="12" y2="52" stroke="var(--gold)" stroke-width="0.1" opacity="0.2"/>
-        <line x1="38" y1="68" x2="85" y2="72" stroke="var(--teal)" stroke-width="0.1" opacity="0.2"/>
-      </svg>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════
-       SECTION 8: FOOTER — Closing Thought
-       ═══════════════════════════════════════════════════════ -->
-  <section class="canvas-footer">
-    <p class="canvas-footer__opening">This is where it begins.</p>
-    <p class="canvas-footer__closing">A living brand, built one smile at a time.</p>
-    <div class="canvas-footer__mark">
-      <svg viewBox="0 0 100 120" class="canvas-footer__tooth">
-        <path d="M30 10 Q30 0 40 0 L60 0 Q70 0 70 10 L72 50 Q72 65 65 80 Q58 95 55 110 Q53 120 50 120 Q47 120 45 110 Q42 95 35 80 Q28 65 28 50 Z" fill="var(--sand)" opacity="0.3"/>
-      </svg>
-    </div>
-  </section>
+  <script src="canvas.js"></script>
 
 </body>
 </html>
