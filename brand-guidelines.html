@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Guidelines — Smiles for Belize</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #0F3B7C;
+    --blue-primary: #1B5AAF;
+    --blue-light: #7CB9E8;
+    --blue-pale: #E8F2FC;
+    --coral: #E8734A;
+    --coral-light: #FFF0EB;
+    --gold: #F5C04A;
+    --gold-light: #FFF8E7;
+    --green: #4CAF7D;
+    --white: #FFFFFF;
+    --off-white: #FAFBFD;
+    --gray-100: #F4F5F7;
+    --gray-200: #E2E5EA;
+    --gray-400: #9CA3AF;
+    --gray-600: #5A6270;
+    --gray-800: #2D3240;
+    --gray-900: #1A1E2A;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(15,59,124,0.08);
+    --shadow-lg: 0 12px 48px rgba(15,59,124,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--gray-800);
+    background: var(--off-white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-primary) 60%, var(--blue-light) 100%);
+    color: var(--white);
+    padding: 80px 40px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(124,185,232,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero__badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    backdrop-filter: blur(8px);
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero p {
+    font-size: 18px;
+    opacity: 0.85;
+    max-width: 560px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero__tooth {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 80px 0;
+  }
+
+  .section-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue-primary);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--gray-600);
+    max-width: 600px;
+    margin-bottom: 48px;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--gray-900);
+  }
+  .card p {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.65;
+  }
+
+  /* ── Mission ── */
+  .mission {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .mission-text h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+  .mission-text p {
+    font-size: 16px;
+    color: var(--gray-600);
+    margin-bottom: 24px;
+  }
+  .mission-tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--blue-pale);
+    color: var(--blue-primary);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 24px;
+    border-radius: 100px;
+  }
+  .mission-values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .value-card {
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    text-align: center;
+  }
+  .value-card .value-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  .value-card h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-900);
+  }
+  .value-card p {
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-top: 4px;
+  }
+  .vi-blue { background: var(--blue-pale); color: var(--blue-primary); }
+  .vi-coral { background: var(--coral-light); color: var(--coral); }
+  .vi-gold { background: var(--gold-light); color: #B8860B; }
+  .vi-green { background: rgba(76,175,125,0.1); color: var(--green); }
+
+  /* ── Logo Section ── */
+  .logo-section { background: var(--off-white); }
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .logo-variant {
+    border-radius: var(--radius);
+    padding: 48px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 220px;
+    position: relative;
+  }
+  .logo-variant .logo-label {
+    position: absolute;
+    bottom: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .logo-primary {
+    background: var(--blue-primary);
+    color: var(--white);
+    box-shadow: var(--shadow-lg);
+  }
+  .logo-reverse {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    color: var(--gray-600);
+  }
+  .logo-mono {
+    background: var(--gray-900);
+    color: var(--gray-400);
+  }
+  .logo-mark {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.15;
+    text-align: center;
+  }
+  .logo-mark small {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+  .logo-tooth {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 4px;
+  }
+  .logo-rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .logo-rule {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .rule-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .rule-do { background: rgba(76,175,125,0.12); color: var(--green); }
+  .rule-dont { background: rgba(232,115,74,0.12); color: var(--coral); }
+  .logo-rule p {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  .logo-rule strong {
+    color: var(--gray-800);
+  }
+
+  /* ── Colors ── */
+  .colors-section { background: var(--white); border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); }
+  .color-palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .color-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s;
+  }
+  .color-card:hover { transform: translateY(-2px); }
+  .color-swatch {
+    height: 120px;
+    position: relative;
+  }
+  .color-info {
+    padding: 16px;
+    background: var(--white);
+  }
+  .color-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .color-hex {
+    font-size: 13px;
+    color: var(--gray-400);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .color-usage {
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  .color-combos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .combo {
+    border-radius: var(--radius-sm);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .combo h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .combo p {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+  .combo-hero { background: var(--blue-primary); color: var(--white); }
+  .combo-warm { background: var(--coral); color: var(--white); }
+  .combo-soft { background: var(--blue-pale); color: var(--blue-deep); }
+
+  /* ── Typography ── */
+  .type-section { background: var(--off-white); }
+  .type-specimen {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    padding: 48px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+  }
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 32px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-label {
+    width: 140px;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+  }
+  .type-sample {
+    flex: 1;
+  }
+  .type-meta {
+    width: 180px;
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 12px;
+    color: var(--gray-400);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .t-display {
+    font-family: 'Poppins', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--gray-900);
+    line-height: 1.1;
+  }
+  .t-h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1.2;
+  }
+  .t-h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1.25;
+  }
+  .t-h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.3;
+  }
+  .t-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.65;
+  }
+  .t-caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--gray-400);
+    line-height: 1.5;
+  }
+  .type-families {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .type-family {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    padding: 32px;
+  }
+  .type-family h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .type-family .family-role {
+    font-size: 12px;
+    color: var(--blue-primary);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .type-family .family-preview {
+    font-size: 32px;
+    color: var(--gray-800);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .type-family .family-weights {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .weight-tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--gray-100);
+    color: var(--gray-600);
+  }
+
+  /* ── Photography ── */
+  .photo-section { background: var(--white); border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); }
+  .photo-categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .photo-cat {
+    background: var(--gray-100);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+  }
+  .photo-cat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--blue-pale);
+    color: var(--blue-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+  .photo-cat h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .photo-cat p {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  .photo-principles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .photo-principle {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--off-white);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+  }
+  .pp-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--blue-primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .photo-principle h5 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 2px;
+  }
+  .photo-principle p {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* ── Voice ── */
+  .voice-section { background: var(--off-white); }
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .voice-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .voice-card h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .voice-card p {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+  .voice-examples {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+  }
+  .voice-ex-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .voice-ex-row:last-child { border-bottom: none; }
+  .voice-ex-header {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .voice-do-header { background: rgba(76,175,125,0.06); color: var(--green); }
+  .voice-dont-header { background: rgba(232,115,74,0.06); color: var(--coral); }
+  .voice-ex-cell {
+    padding: 16px 24px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .voice-do { color: var(--gray-800); background: rgba(76,175,125,0.02); }
+  .voice-dont { color: var(--gray-400); background: rgba(232,115,74,0.02); text-decoration: line-through; }
+
+  /* ── Patterns ── */
+  .patterns-section { background: var(--white); border-top: 1px solid var(--gray-200); }
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+  .pattern-card {
+    background: var(--off-white);
+    border-radius: var(--radius);
+    padding: 28px;
+    border: 1px solid var(--gray-200);
+  }
+  .pattern-preview {
+    height: 120px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pattern-card h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .pattern-card p {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  .pp-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.15s;
+  }
+  .pp-btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--blue-primary); color: var(--white); }
+  .btn-coral { background: var(--coral); color: var(--white); }
+  .btn-outline { background: transparent; color: var(--blue-primary); border: 2px solid var(--blue-primary); }
+  .pp-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ── Footer ── */
+  .guidelines-footer {
+    background: var(--gray-900);
+    color: var(--white);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .guidelines-footer p {
+    font-size: 14px;
+    opacity: 0.6;
+    margin-top: 8px;
+  }
+  .guidelines-footer h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  /* ── Photo Strip ── */
+  .photo-strip {
+    display: flex;
+    overflow: hidden;
+    gap: 0;
+    margin-top: -48px;
+    position: relative;
+    z-index: 1;
+  }
+  .photo-strip img {
+    width: 20%;
+    height: 200px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  /* ── Mission Photo ── */
+  .mission-photo {
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .mission-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── Photo Gallery ── */
+  .photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .photo-gallery-item {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1;
+  }
+  .photo-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+  .photo-gallery-item:hover img {
+    transform: scale(1.05);
+  }
+  .photo-gallery-item--wide {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+  }
+  .photo-gallery-item--tall {
+    grid-row: span 2;
+  }
+  .photo-gallery-item .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(15,59,124,0.6) 0%, transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .photo-gallery-item:hover .photo-overlay {
+    opacity: 1;
+  }
+  .photo-overlay span {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ── Video ── */
+  .video-section {
+    background: var(--gray-900);
+    padding: 60px 0;
+  }
+  .video-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .video-wrapper video {
+    width: 100%;
+    display: block;
+  }
+  .video-caption {
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 14px;
+    margin-top: 16px;
+  }
+
+  /* ── Inline Photos ── */
+  .section-photo-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .section-photo {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow);
+  }
+  .section-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero { padding: 60px 24px 80px; }
+    section { padding: 56px 0; }
+    .mission-grid,
+    .logo-grid,
+    .type-families,
+    .photo-categories,
+    .voice-grid,
+    .pattern-grid,
+    .color-combos,
+    .logo-rules,
+    .photo-principles { grid-template-columns: 1fr; }
+    .logo-grid { grid-template-columns: 1fr; }
+    .color-palette { grid-template-columns: 1fr 1fr; }
+    .type-row { flex-direction: column; gap: 8px; }
+    .type-label, .type-meta { width: auto; text-align: left; }
+    .voice-ex-row { grid-template-columns: 1fr; }
+    .photo-strip img { width: 33.33%; height: 140px; }
+    .photo-gallery { grid-template-columns: 1fr 1fr; }
+    .photo-gallery-item--wide { grid-column: span 2; }
+    .section-photo-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+<header class="hero">
+  <div class="hero__badge">Brand Guidelines</div>
+  <svg class="hero__tooth" viewBox="0 0 64 64" fill="none">
+    <path d="M32 4C22 4 16 12 16 20c0 6 2 10 4 16 2.5 7.5 4 16 8 24 1.5 3 3 3 4 0 2-5 3.5-10 4.5-14.5.5-2 1-.5 1.5 2 1 4.5 2.5 9.5 4 12.5 1 3 2.5 3 4 0 4-8 5.5-16.5 8-24 2-6 4-10 4-16C48 12 42 4 32 4z" fill="white" opacity="0.95"/>
+    <path d="M26 18c0 0 2 6 6 6s6-6 6-6" stroke="rgba(27,90,175,0.4)" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+  <h1>Smiles for Belize</h1>
+  <p>Visual identity and brand standards for communicating our mission of dental health access for every child in Belize.</p>
+</header>
+
+<div class="photo-strip">
+  <img src="images/ambassador-serving-community.jpg" alt="Miss World Belize serving community">
+  <img src="images/kids-peace-sign-classroom.jpg" alt="Children smiling in classroom">
+  <img src="images/screening-child-outdoor.jpg" alt="Dental screening outdoors">
+  <img src="images/ambassador-parade-float.jpg" alt="Miss World Belize parade">
+  <img src="images/kids-brushing-outside.jpg" alt="Kids learning to brush teeth">
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════ MISSION ═══════════════════════════════════ -->
+<section class="mission">
+  <div class="mission-grid">
+    <div class="mission-text">
+      <div class="section-label">Our Mission</div>
+      <h2>Healthy Teeth,<br>Happy Life</h2>
+      <p>Smiles for Belize provides free dental care and oral health education to underserved children and communities across Belize. Through volunteer dental clinics, school visits, and community outreach, we're building a future where every child has access to the care they deserve.</p>
+      <p>Our brand ambassador, Miss World Belize, carries this mission into schools, communities, and international stages — making dental health visible, approachable, and joyful.</p>
+      <div class="mission-tagline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Healthy teeth, happy life
+      </div>
+    </div>
+    <div class="mission-photo">
+      <img src="images/ambassador-kids-school-bench.jpg" alt="Miss World Belize with school children on bench">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ LOGO ═══════════════════════════════════ -->
+<section class="logo-section">
+  <div class="section-label">Logo</div>
+  <div class="section-title">Logo & Brandmark</div>
+  <div class="section-desc">The Smiles for Belize logo pairs a smiling tooth icon with bold, approachable typography. The tooth's smile curve communicates warmth and the joy of healthy dental care.</div>
+
+  <div class="logo-grid">
+    <div class="logo-variant logo-primary" style="padding:24px">
+      <img src="images/logo.jpg" alt="Smiles for Belize logo" style="width:100%;max-width:280px;border-radius:12px;">
+      <div class="logo-label">Primary — Blue background</div>
+    </div>
+    <div class="logo-variant logo-reverse">
+      <svg class="logo-tooth" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4C22 4 16 12 16 20c0 6 2 10 4 16 2.5 7.5 4 16 8 24 1.5 3 3 3 4 0 2-5 3.5-10 4.5-14.5.5-2 1-.5 1.5 2 1 4.5 2.5 9.5 4 12.5 1 3 2.5 3 4 0 4-8 5.5-16.5 8-24 2-6 4-10 4-16C48 12 42 4 32 4z" fill="#1B5AAF"/>
+        <path d="M26 18c0 0 2 6 6 6s6-6 6-6" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-mark" style="color:#1B5AAF">SMILES<br>FOR BELIZE</div>
+      <div class="logo-label">Reversed — Light backgrounds</div>
+    </div>
+    <div class="logo-variant logo-mono">
+      <svg class="logo-tooth" viewBox="0 0 64 64" fill="none">
+        <path d="M32 4C22 4 16 12 16 20c0 6 2 10 4 16 2.5 7.5 4 16 8 24 1.5 3 3 3 4 0 2-5 3.5-10 4.5-14.5.5-2 1-.5 1.5 2 1 4.5 2.5 9.5 4 12.5 1 3 2.5 3 4 0 4-8 5.5-16.5 8-24 2-6 4-10 4-16C48 12 42 4 32 4z" fill="white"/>
+        <path d="M26 18c0 0 2 6 6 6s6-6 6-6" stroke="rgba(0,0,0,0.3)" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-mark" style="color:white">SMILES<br>FOR BELIZE</div>
+      <div class="logo-label">Monochrome — Dark contexts</div>
+    </div>
+  </div>
+
+  <div class="logo-rules">
+    <div class="logo-rule">
+      <div class="rule-icon rule-do">&#10003;</div>
+      <div>
+        <p><strong>Maintain clear space</strong> equal to the tooth icon height on all sides. Let the logo breathe.</p>
+      </div>
+    </div>
+    <div class="logo-rule">
+      <div class="rule-icon rule-dont">&#10007;</div>
+      <div>
+        <p><strong>Don't distort proportions</strong> — always scale the logo uniformly. Never stretch or compress.</p>
+      </div>
+    </div>
+    <div class="logo-rule">
+      <div class="rule-icon rule-do">&#10003;</div>
+      <div>
+        <p><strong>Use approved color variants only.</strong> Primary (blue bg), reversed (white bg), or monochrome.</p>
+      </div>
+    </div>
+    <div class="logo-rule">
+      <div class="rule-icon rule-dont">&#10007;</div>
+      <div>
+        <p><strong>Don't place on busy photo backgrounds</strong> without a solid or frosted overlay.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ COLORS ═══════════════════════════════════ -->
+<section class="colors-section">
+  <div class="section-label">Color Palette</div>
+  <div class="section-title">Colors That Care</div>
+  <div class="section-desc">A foundation of trustworthy blue paired with warm accents that reflect the joy of community and the vibrant spirit of Belize.</div>
+
+  <div class="color-palette">
+    <div class="color-card">
+      <div class="color-swatch" style="background:var(--blue-deep)"></div>
+      <div class="color-info">
+        <div class="color-name">Deep Blue</div>
+        <div class="color-hex">#0F3B7C</div>
+        <div class="color-usage">Headers, logo background, hero sections</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:var(--blue-primary)"></div>
+      <div class="color-info">
+        <div class="color-name">Primary Blue</div>
+        <div class="color-hex">#1B5AAF</div>
+        <div class="color-usage">Buttons, links, primary actions</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:var(--blue-light)"></div>
+      <div class="color-info">
+        <div class="color-name">Sky Blue</div>
+        <div class="color-hex">#7CB9E8</div>
+        <div class="color-usage">Accents, highlights, secondary text on dark</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:var(--coral)"></div>
+      <div class="color-info">
+        <div class="color-name">Warm Coral</div>
+        <div class="color-hex">#E8734A</div>
+        <div class="color-usage">CTAs, donate buttons, warm accents</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:var(--gold)"></div>
+      <div class="color-info">
+        <div class="color-name">Sunshine Gold</div>
+        <div class="color-hex">#F5C04A</div>
+        <div class="color-usage">Highlights, impact numbers, celebration</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background:var(--green)"></div>
+      <div class="color-info">
+        <div class="color-name">Health Green</div>
+        <div class="color-hex">#4CAF7D</div>
+        <div class="color-usage">Success states, health indicators, growth</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="color-combos">
+    <div class="combo combo-hero">
+      <h4>Hero & Headers</h4>
+      <p>White text on Deep Blue</p>
+    </div>
+    <div class="combo combo-warm">
+      <h4>Calls to Action</h4>
+      <p>White text on Warm Coral</p>
+    </div>
+    <div class="combo combo-soft">
+      <h4>Soft Sections</h4>
+      <p>Dark text on Pale Blue</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ TYPOGRAPHY ═══════════════════════════════════ -->
+<section class="type-section">
+  <div class="section-label">Typography</div>
+  <div class="section-title">Type System</div>
+  <div class="section-desc">Poppins for headings brings friendly confidence. Inter for body text ensures comfortable readability across devices and contexts.</div>
+
+  <div class="type-specimen">
+    <div class="type-row">
+      <div class="type-label">Display</div>
+      <div class="type-sample t-display">Every smile matters</div>
+      <div class="type-meta">Poppins 800 / 48px</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Heading 1</div>
+      <div class="type-sample t-h1">Building brighter futures</div>
+      <div class="type-meta">Poppins 700 / 36px</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Heading 2</div>
+      <div class="type-sample t-h2">Our impact in Belize</div>
+      <div class="type-meta">Poppins 700 / 28px</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Heading 3</div>
+      <div class="type-sample t-h3">Dental health education</div>
+      <div class="type-meta">Poppins 600 / 20px</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Body</div>
+      <div class="type-sample t-body">Through volunteer dental clinics in schools and community centers, we bring professional dental care directly to the children who need it most. Every visit includes free cleanings, education, and follow-up care.</div>
+      <div class="type-meta">Inter 400 / 16px</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Caption</div>
+      <div class="type-sample t-caption">Photo: Miss World Belize visiting St. Andrew's Episcopal School, San Pedro</div>
+      <div class="type-meta">Inter 400 / 13px</div>
+    </div>
+  </div>
+
+  <div class="type-families">
+    <div class="type-family">
+      <h4>Poppins</h4>
+      <div class="family-role">Headlines & Display</div>
+      <div class="family-preview" style="font-family:'Poppins',sans-serif;font-weight:700">Aa Bb Cc Dd</div>
+      <div class="family-weights">
+        <span class="weight-tag">500 Medium</span>
+        <span class="weight-tag">600 Semi</span>
+        <span class="weight-tag">700 Bold</span>
+        <span class="weight-tag">800 Extra</span>
+      </div>
+    </div>
+    <div class="type-family">
+      <h4>Inter</h4>
+      <div class="family-role">Body & Interface</div>
+      <div class="family-preview" style="font-family:'Inter',sans-serif;font-weight:400">Aa Bb Cc Dd</div>
+      <div class="family-weights">
+        <span class="weight-tag">400 Regular</span>
+        <span class="weight-tag">500 Medium</span>
+        <span class="weight-tag">600 Semi</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ PHOTOGRAPHY ═══════════════════════════════════ -->
+<section class="photo-section">
+  <div class="section-label">Photography</div>
+  <div class="section-title">Visual Storytelling</div>
+  <div class="section-desc">Our photography is authentic, warm, and community-centered. Every image should feel like you're there — not looking at a brochure.</div>
+
+  <div class="photo-gallery">
+    <div class="photo-gallery-item photo-gallery-item--wide">
+      <img src="images/clinic-wide.jpg" alt="Full dental clinic setup">
+      <div class="photo-overlay"><span>Community Dental Clinic</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/screening-child-closeup.jpg" alt="Dental screening closeup">
+      <div class="photo-overlay"><span>Dental Screening</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/ambassador-kids-group-yellow.jpg" alt="Ambassador with children">
+      <div class="photo-overlay"><span>Community Outreach</span></div>
+    </div>
+    <div class="photo-gallery-item photo-gallery-item--tall">
+      <img src="images/kids-brushing-outside.jpg" alt="Kids brushing teeth outside">
+      <div class="photo-overlay"><span>Brushing Education</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/ambassador-coloring-activity.jpg" alt="Coloring activity with children">
+      <div class="photo-overlay"><span>Education Activities</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/kids-smiling-classroom.jpg" alt="Kids smiling in classroom">
+      <div class="photo-overlay"><span>School Visit</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/ambassador-dental-work.jpg" alt="Ambassador doing dental work">
+      <div class="photo-overlay"><span>Hands-On Care</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/dental-care-bw.jpg" alt="Dental care in black and white">
+      <div class="photo-overlay"><span>Clinical Care (B&W)</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/volunteers-talking-students.jpg" alt="Volunteers talking to students">
+      <div class="photo-overlay"><span>Volunteer Education</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/ambassador-serving-community.jpg" alt="Ambassador serving at community event">
+      <div class="photo-overlay"><span>Community Service</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/kids-classroom-waiting.jpg" alt="Children waiting in classroom">
+      <div class="photo-overlay"><span>Waiting for Care</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/ambassador-community-crowd.jpg" alt="Ambassador in community crowd">
+      <div class="photo-overlay"><span>In the Community</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/screening-child-outdoor.jpg" alt="Screening child outdoors">
+      <div class="photo-overlay"><span>Outdoor Screening</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/ambassador-laughing-casual.jpg" alt="Ambassador casual portrait">
+      <div class="photo-overlay"><span>Ambassador Lifestyle</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/ambassador-hair-flip.jpg" alt="Ambassador portrait">
+      <div class="photo-overlay"><span>Ambassador Portrait</span></div>
+    </div>
+    <div class="photo-gallery-item">
+      <img src="images/ambassador-parade-float.jpg" alt="Ambassador on parade float">
+      <div class="photo-overlay"><span>Public Appearances</span></div>
+    </div>
+  </div>
+
+  <div class="photo-categories">
+    <div class="photo-cat">
+      <div class="photo-cat-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h4>Community Outreach</h4>
+      <p>Real moments from dental clinics, school visits, and community events. Candid over posed. Natural light. The warmth of human connection.</p>
+    </div>
+    <div class="photo-cat">
+      <div class="photo-cat-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      </div>
+      <h4>Children & Smiles</h4>
+      <p>Kids in school uniforms, laughing, peace signs, playing. Show the joy and energy of the children we serve. Their smiles ARE the brand.</p>
+    </div>
+    <div class="photo-cat">
+      <div class="photo-cat-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h4>Clinical Care</h4>
+      <p>Dental professionals at work — screenings, cleanings, education. Can use B&W for editorial weight. Always show care and professionalism.</p>
+    </div>
+  </div>
+
+  <div class="photo-principles">
+    <div class="photo-principle">
+      <div class="pp-num">1</div>
+      <div>
+        <h5>Always Authentic</h5>
+        <p>No stock photography. Every image should be from an actual Smiles for Belize event, clinic, or school visit.</p>
+      </div>
+    </div>
+    <div class="photo-principle">
+      <div class="pp-num">2</div>
+      <div>
+        <h5>Natural Light First</h5>
+        <p>Embrace the outdoor settings — covered pavilions, school porches, community halls. The Belizean light is warm and beautiful.</p>
+      </div>
+    </div>
+    <div class="photo-principle">
+      <div class="pp-num">3</div>
+      <div>
+        <h5>Eye-Level with Children</h5>
+        <p>Photograph at the child's height. Never shoot down at them. Show dignity and equality in every frame.</p>
+      </div>
+    </div>
+    <div class="photo-principle">
+      <div class="pp-num">4</div>
+      <div>
+        <h5>B&W for Clinical Depth</h5>
+        <p>Black and white treatment can add editorial gravitas to dental care photos. Use sparingly for impact.</p>
+      </div>
+    </div>
+    <div class="photo-principle">
+      <div class="pp-num">5</div>
+      <div>
+        <h5>Ambassador Integration</h5>
+        <p>Miss World Belize photos bridge glamour and grassroots. Show her in the community, not above it.</p>
+      </div>
+    </div>
+    <div class="photo-principle">
+      <div class="pp-num">6</div>
+      <div>
+        <h5>Show the Setting</h5>
+        <p>Include wide shots of clinic setups, colorful buildings, and Belizean landscapes. Context tells the story.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ VOICE ═══════════════════════════════════ -->
+<section class="voice-section">
+  <div class="section-label">Voice & Tone</div>
+  <div class="section-title">How We Speak</div>
+  <div class="section-desc">Warm, direct, and hopeful. We talk about real impact in real communities — never abstract or corporate.</div>
+
+  <div class="voice-grid">
+    <div class="voice-card">
+      <h4>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue-primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        Warm & Joyful
+      </h4>
+      <p>Lead with smiles, not statistics. We're a charity built on human connection. Let the warmth of our work come through in every word.</p>
+    </div>
+    <div class="voice-card">
+      <h4>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Direct & Honest
+      </h4>
+      <p>Simple, clear language. Say what we do and why it matters. Avoid jargon. If a 10-year-old in Belize City wouldn't understand it, rewrite it.</p>
+    </div>
+    <div class="voice-card">
+      <h4>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Hopeful, Not Pitying
+      </h4>
+      <p>We uplift, never pity. Show the strength of the communities we work with. They're partners, not recipients. Focus on possibility.</p>
+    </div>
+    <div class="voice-card">
+      <h4>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Community-Centered
+      </h4>
+      <p>The heroes are the volunteers, the dentists, the teachers, and the kids. We're the connector, not the savior. "We" always means the whole community.</p>
+    </div>
+  </div>
+
+  <div class="voice-examples">
+    <div class="voice-ex-row">
+      <div class="voice-ex-header voice-do-header">Write This</div>
+      <div class="voice-ex-header voice-dont-header">Not This</div>
+    </div>
+    <div class="voice-ex-row">
+      <div class="voice-ex-cell voice-do">"Last month, 47 children in San Pedro got their first dental checkup — many with smiles wider than the Caribbean."</div>
+      <div class="voice-ex-cell voice-dont">"Our organization successfully administered dental examinations to 47 underserved youth in the San Pedro district."</div>
+    </div>
+    <div class="voice-ex-row">
+      <div class="voice-ex-cell voice-do">"Your $25 gives a child a cleaning, a new toothbrush, and the knowledge to keep their smile healthy for life."</div>
+      <div class="voice-ex-cell voice-dont">"Donations of $25 contribute to our comprehensive dental hygiene program targeting at-risk populations."</div>
+    </div>
+    <div class="voice-ex-row">
+      <div class="voice-ex-cell voice-do">"Meet Dr. Reyes — she's been volunteering with us since day one and has treated over 200 kids."</div>
+      <div class="voice-ex-cell voice-dont">"Our volunteer network includes certified dental professionals with extensive experience in charitable dental care."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ DESIGN PATTERNS ═══════════════════════════════════ -->
+<section class="patterns-section">
+  <div class="section-label">Design Patterns</div>
+  <div class="section-title">UI Components</div>
+  <div class="section-desc">Consistent patterns inspired by nonprofit sites like The Arc, Compassion Beyond Borders, and GainLove — adapted for our brand.</div>
+
+  <div class="pattern-grid">
+    <div class="pattern-card">
+      <div class="pattern-preview" style="background:var(--blue-pale);gap:12px;flex-wrap:wrap;padding:16px;">
+        <a class="pp-btn btn-primary" href="#">Donate Now</a>
+        <a class="pp-btn btn-coral" href="#">Get Involved</a>
+        <a class="pp-btn btn-outline" href="#">Our Mission</a>
+      </div>
+      <h4>Buttons</h4>
+      <p>Pill-shaped with generous padding. Primary blue for navigation, coral for donation/action CTAs, outlined for secondary.</p>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-preview" style="background:var(--gray-100);gap:8px;flex-wrap:wrap;padding:16px;">
+        <span class="pp-badge" style="background:var(--blue-pale);color:var(--blue-primary)">Dental Clinic</span>
+        <span class="pp-badge" style="background:var(--coral-light);color:var(--coral)">Urgent Need</span>
+        <span class="pp-badge" style="background:var(--gold-light);color:#B8860B">Education</span>
+        <span class="pp-badge" style="background:rgba(76,175,125,0.1);color:var(--green)">Complete</span>
+      </div>
+      <h4>Badges & Tags</h4>
+      <p>Soft background with matching text color. Use to categorize events, programs, and impact areas.</p>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-preview" style="background:linear-gradient(135deg, var(--blue-deep), var(--blue-primary));border-radius:12px;flex-direction:column;color:white;gap:4px;">
+        <span style="font-family:'Poppins',sans-serif;font-size:36px;font-weight:800;">1,200+</span>
+        <span style="font-size:13px;opacity:0.8;">Children Treated</span>
+      </div>
+      <h4>Impact Numbers</h4>
+      <p>Large Poppins 800 numbers on gradient backgrounds. Let the stats speak — they're our proof of impact.</p>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-preview" style="background:var(--white);border:1px solid var(--gray-200);border-radius:12px;flex-direction:column;padding:20px;gap:8px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-primary)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <span style="font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;color:var(--gray-900)">Volunteer Program</span>
+        <span style="font-size:12px;color:var(--gray-400)">Join our dental teams</span>
+      </div>
+      <h4>Feature Cards</h4>
+      <p>Icon + title + description in clean white cards. Round icon containers with pale brand color backgrounds.</p>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-preview" style="background:var(--off-white);border-radius:12px;flex-direction:column;padding:20px;gap:6px;border-left:4px solid var(--blue-primary);">
+        <span style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;color:var(--gray-800);font-style:italic;">"Every child deserves a healthy smile."</span>
+        <span style="font-size:12px;color:var(--gray-400);">— Dr. Maria Reyes, Volunteer Dentist</span>
+      </div>
+      <h4>Testimonial Quotes</h4>
+      <p>Left-border accent with italic Poppins text. Attribution in caption size below. Keep quotes short and human.</p>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-preview" style="border-radius:12px;overflow:hidden;position:relative;background:var(--gray-200);">
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,59,124,0.7) 0%,transparent 60%);display:flex;align-items:flex-end;padding:16px;">
+          <div>
+            <span style="color:white;font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;display:block">San Pedro Clinic</span>
+            <span style="color:rgba(255,255,255,0.7);font-size:11px">March 2026 · 89 patients</span>
+          </div>
+        </div>
+      </div>
+      <h4>Photo Cards</h4>
+      <p>Full-bleed photos with gradient overlay at bottom for text. Use for event galleries and program showcases.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ═══════════════════════════════════ VIDEO ═══════════════════════════════════ -->
+<section class="video-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:24px;">
+      <div class="section-label" style="color:var(--blue-light)">Video</div>
+      <div class="section-title" style="color:white">In Action</div>
+    </div>
+    <div class="video-wrapper">
+      <video controls poster="images/ambassador-kids-group-yellow.jpg">
+        <source src="images/ambassador-video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="video-caption">Miss World Belize — dental health education in the community</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
+<footer class="guidelines-footer">
+  <h3>Smiles for Belize</h3>
+  <p>Brand Guidelines v1.0 — March 2026</p>
+  <p>Healthy teeth, happy life.</p>
+</footer>
+
+</body>
+</html>
