@@ -216,8 +216,9 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .prog-card-icon{
   width:48px;height:48px;border-radius:14px;
   display:flex;align-items:center;justify-content:center;margin-bottom:14px;
-  position:relative;
+  position:relative;overflow:hidden;
 }
+.prog-card-icon img{width:36px;height:36px;object-fit:contain}
 .prog-card-icon::after{content:'';position:absolute;inset:-2px;border-radius:16px;border:2px solid;opacity:0.08;border-color:inherit}
 .prog-card h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:var(--g900);margin-bottom:8px;letter-spacing:-0.2px}
 .prog-card p{font-size:13px;color:var(--g600);line-height:1.65}
@@ -587,8 +588,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     <div class="prog-card fade-in">
       <div class="prog-card-img"><img src="images/clinic-wide.jpg" alt="Volunteer dentists providing free dental treatment at a community clinic in Belize" width="600" height="400" loading="lazy"></div>
       <div class="prog-card-body">
-        <div class="prog-card-icon" style="background:var(--blue-pale);color:var(--blue);border-color:var(--blue)">
-          <svg width="22" height="26" viewBox="0 0 100 120" fill="currentColor"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+        <div class="prog-card-icon" style="background:var(--blue-pale);border-color:var(--blue)">
+          <img src="images/icons/icon-dental-clinic.png" alt="" width="36" height="36">
         </div>
         <h3>Community Dental Clinics</h3>
         <p>Free dental treatment provided in community centers and covered pavilions across Belize, staffed by volunteer dentists.</p>
@@ -598,8 +599,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     <div class="prog-card fade-in fade-in-delay-1">
       <div class="prog-card-img"><img src="images/screening-child-outdoor.jpg" alt="Dental screening for a child at a school outreach visit" width="600" height="400" loading="lazy"></div>
       <div class="prog-card-body">
-        <div class="prog-card-icon" style="background:var(--coral-light);color:var(--coral);border-color:var(--coral)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9.5" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="9.5" r="1" fill="currentColor" stroke="none"/></svg>
+        <div class="prog-card-icon" style="background:var(--coral-light);border-color:var(--coral)">
+          <img src="images/icons/icon-healthy-smile.png" alt="" width="36" height="36">
         </div>
         <h3>School Screenings</h3>
         <p>On-site dental checkups and screenings at schools throughout Belize City, San Pedro, and surrounding communities.</p>
@@ -609,8 +610,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     <div class="prog-card fade-in fade-in-delay-2">
       <div class="prog-card-img"><img src="images/students-brushing-uniforms.jpg" alt="Students in uniforms practicing tooth brushing techniques outdoors" width="600" height="400" loading="lazy"></div>
       <div class="prog-card-body">
-        <div class="prog-card-icon" style="background:var(--gold-light);color:#B8860B;border-color:#B8860B">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="4" height="8" rx="2"/><line x1="8" y1="10" x2="8" y2="22"/><line x1="6" y1="4" x2="10" y2="4"/><line x1="6" y1="6" x2="10" y2="6"/><line x1="6" y1="8" x2="10" y2="8"/></svg>
+        <div class="prog-card-icon" style="background:var(--gold-light);border-color:#B8860B">
+          <img src="images/icons/icon-oral-hygiene.png" alt="" width="36" height="36">
         </div>
         <h3>Oral Health Education</h3>
         <p>Fun, hands-on brushing workshops and dental hygiene lessons that give children the tools to care for their teeth.</p>
@@ -620,8 +621,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
     <div class="prog-card fade-in fade-in-delay-3">
       <div class="prog-card-img"><img src="images/ambassador-serving-community.jpg" alt="Volunteers serving food and engaging with community members in Belize" width="600" height="400" loading="lazy"></div>
       <div class="prog-card-body">
-        <div class="prog-card-icon" style="background:var(--green-pale);color:var(--green);border-color:var(--green)">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <div class="prog-card-icon" style="background:var(--green-pale);border-color:var(--green)">
+          <img src="images/icons/icon-dentist-shield.png" alt="" width="36" height="36">
         </div>
         <h3>Community Outreach</h3>
         <p>Food drives, community meals, and volunteer events that go beyond dental care to support families across Belize.</p>
