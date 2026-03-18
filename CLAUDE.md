@@ -1,40 +1,60 @@
-# Smiles for Belize — Brand Website
+# Smiles for Belize — Nonprofit Website
 
 ## Project Overview
 
-Nonprofit dental charity website for **Smiles for Belize**, providing free dental care to underserved communities across Belize. **Faith Edgar (Miss World Belize 2025)** is the brand ambassador.
+Nonprofit dental accessibility website for **Smiles for Belize** — promoting dental accessibility, education, and outreach across Belize through free clinics, school visits, and community partnerships. **Faith Edgar (Miss World Belize 2025)** is the brand ambassador.
+
+**Mission:** Oral health is essential health. Every person, regardless of income or location, deserves to live with comfort, confidence, and care.
 
 **Repo:** `get-proofpilot/Smiles-for-Belize`
-**Branch:** `claude/brand-style-guide-JzwUd` (default branch — no main branch)
+**Branch:** `claude/brand-style-guide-JzwUd` (default branch)
 **Hosting:** Railway (auto-deploys on push to GitHub)
-**Stack:** Static HTML/CSS/JS served with `serve -s . -l $PORT`
+**Stack:** React + Vite + Tailwind CSS v4
+
+## Build & Dev
+
+```bash
+npm install
+npm run dev          # Vite dev server
+npm run build        # Production build → dist/
+```
+
+Railway runs `npm run build` then serves `dist/` via `serve -s dist -l $PORT`.
 
 ## File Structure
 
-| File | Purpose |
-|------|---------|
-| `index.html` | **Homepage** — 10-section nonprofit landing page (~1000 lines, self-contained) |
-| `competitor-sections.html` | 13 competitor-inspired section patterns rebuilt with SFB brand |
-| `brand-guidelines.html` | Brand identity reference page |
-| `canvas.html` + `canvas.js` + `styles.css` | Interactive brand mood board canvas (FigJam-style tool) |
-| `images/` | 36 photos (Instagram + video frame grabs) + 1 video |
-| `images/icons/` | 12 custom two-tone dental icon PNGs (cropped from purchased spritesheet) |
-| `package.json` | Just `serve` dependency for Railway |
+```
+src/
+├── App.tsx                    # Root — assembles all sections
+├── main.tsx                   # Vite entry point
+├── styles/index.css           # Tailwind v4 config, brand tokens, animations
+└── components/
+    ├── Navbar.tsx              # Sticky nav, transparent→solid on scroll
+    ├── Hero.tsx                # Mission-focused hero with video player
+    ├── Programs.tsx            # 4 program cards (clinics, screenings, education, outreach)
+    ├── ImpactStats.tsx         # Bento grid stats with SVG icons
+    ├── Ambassador.tsx          # Team/volunteer section with Faith Edgar
+    ├── WhereWeWork.tsx         # 4 Belizean locations
+    ├── Testimonials.tsx        # 3 testimonial cards
+    ├── DonateCTA.tsx           # Donation call to action
+    └── Footer.tsx              # 4-column footer
+
+public/
+├── images/                    # Photos (ambassador-*, clinic-*, kids-*, etc.)
+│   ├── icons/                 # 12 two-tone dental icon PNGs
+│   └── illustrations/         # ReCraft-generated assets (not currently used in components)
+└── videos/                    # Ambassador intro video
+```
 
 ## Design System
 
-### Brand Colors (CSS custom properties in index.html)
+### Brand Colors (Tailwind v4 @theme tokens)
 ```
---blue-deep: #0F3B7C    (primary dark)
---blue: #1B5AAF          (primary)
---blue-light: #7CB9E8    (sky/accent)
---blue-pale: #E8F2FC     (tint)
---coral: #E8734A         (CTA / warm accent)
---coral-dark: #d4573a
---gold: #F5C04A          (highlight)
---green: #4CAF7D         (success/nature)
---warm-cream: #FBF8F4    (page background)
---warm-sand: #F5F0E8     (alt section bg)
+--color-brand-navy: #224888       (primary dark)
+--color-brand-sky: #7CAEEB        (primary accent)
+--color-brand-sky-light: #B8D6F5  (light accent)
+--color-brand-sky-soft: #EEF5FC   (tint/background)
+--color-dental-bg: #F8FAFC        (page background)
 ```
 
 ### Typography
@@ -42,55 +62,22 @@ Nonprofit dental charity website for **Smiles for Belize**, providing free denta
 - **Body:** Inter (400–600 weight)
 - Loaded via Google Fonts
 
-### Design Patterns Used
-- Grain texture overlay (`body::after` SVG noise filter)
-- Floating tooth SVG decorations with CSS keyframe animations
-- Dot grid pattern backgrounds
-- Gradient mesh / radial gradient hero backgrounds
-- Wave SVG dividers between contrasting sections
+### Design Patterns
+- SVG tooth/dental-tool line-art as subtle monochrome background decorations
+- Sparkle star SVG accents scattered at low opacity
 - IntersectionObserver scroll-triggered `.fade-in` animations
-- Sticky navbar with transparent → solid on scroll
+- CSS `animate-float` keyframe for gentle bobbing elements
+- Sticky navbar with transparent→solid on scroll
 - Mobile responsive with hamburger menu
+- Bento grid layout for impact stats
+- Photo cards with gradient overlays and hover reveal text
 
-## Homepage Sections (index.html)
+## Key Copy / Messaging
 
-1. **Sticky Nav** — Logo + links, transparent→solid on scroll
-2. **Hero** — Full viewport, gradient mesh bg, floating teeth, dual CTAs
-3. **Programs** — 4-card grid with photos + custom dental icons (dental clinic, healthy smile, oral hygiene, dentist shield)
-4. **Impact Stats** — 4 stats on dark gradient background
-5. **Ambassador** — Faith Edgar feature with pull quote
-6. **B&W Photo Strip** — 5 images with hover colorize effect
-7. **Where We Work** — 4 Belizean locations
-8. **Testimonials** — 3 testimonial cards
-9. **Donate CTA** — Coral gradient with selectable amount circles
-10. **Footer** — 4-column grid
+**H1:** "Bringing Dental Care to Every Community"
+**Sub:** "Oral health is essential health. Through free clinics, school visits, and community partnerships, we're making dental care accessible to every Belizean — regardless of income or location."
 
-## Available Icons (images/icons/)
-
-12 two-tone dental illustration PNGs, auto-trimmed:
-- `icon-dental-clinic.png` — Dentist treating patient in chair
-- `icon-screening.png` — Dental X-ray/report card
-- `icon-treatment.png` — Tooth with drill
-- `icon-root-canal.png` — Tooth with cleaning probe
-- `icon-healthy-smile.png` — Sparkling smile with teeth
-- `icon-teeth-cleaning.png` — Water jet cleaning with sparkles
-- `icon-extraction.png` — Tooth extraction
-- `icon-braces.png` — Braces/orthodontics
-- `icon-oral-hygiene.png` — Toothpaste tube + toothbrush
-- `icon-dentist-shield.png` — Dentist with protective tooth shield
-- `icon-gum-health.png` — Tooth with gums
-- `icon-happy-tooth.png` — Smiling tooth with crown
-
-## Photo Library (images/)
-
-36 photos organized by subject:
-- `ambassador-*` — 19 photos of Faith Edgar (dental work, community events, pageant, casual)
-- `clinic-wide.jpg`, `dental-care-bw.jpg` — Clinic/treatment shots
-- `dental-*-detail.jpg`, `dental-*-closeup.jpg` — Procedure closeups
-- `kids-*`, `students-*`, `screening-*` — School visits, screenings, brushing workshops
-- `volunteers-talking-students.jpg` — Volunteer interactions
-- `logo.jpg` — Organization logo
-- `ambassador-video.mp4` — Video of Faith Edgar
+The tone is nonprofit/mission-driven, not clinical/commercial. We are NOT a dental company — we're a nonprofit providing access, education, and outreach.
 
 ## Deployment
 
@@ -99,10 +86,10 @@ Nonprofit dental charity website for **Smiles for Belize**, providing free denta
 git push origin claude/brand-style-guide-JzwUd
 ```
 
-## Next Steps / Roadmap
+## Roadmap
 
-- [ ] Create custom SVG icons/illustrations (dental-themed decorative elements like floating teeth, sparkles, smile curves — similar to the ocean nonprofit inspiration site)
 - [ ] Add more pages: About, Programs detail, Get Involved, Donate
 - [ ] Canvas briefing integration (canvas.html exports briefing for Claude brand strategy)
 - [ ] Accessibility audit (alt text, ARIA, keyboard nav, contrast)
 - [ ] Performance optimization (image compression, lazy loading audit)
+- [ ] Integrate editorial-style photo cutouts into hero section (collage aesthetic)

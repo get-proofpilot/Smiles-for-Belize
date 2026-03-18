@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  /* Smiles For Belize Official Palette */
+  --color-brand-navy: #224888;
+  --color-brand-sky: #7CAEEB;
+  --color-brand-sky-light: #B8D6F5;
+  --color-brand-sky-soft: #EEF5FC;
+  
+  --color-dental-bg: #F8FAFC;
+  --color-dental-surface: #FFFFFF;
+  --color-dental-text: #1E293B;
+  --color-dental-text-muted: #64748B;
+
+  --font-poppins: 'Poppins', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scale-in: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-float: float 6s ease-in-out infinite;
+  
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+  }
+  @keyframes float-drift {
+    0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    33% { transform: translateY(-8px) translateX(4px) rotate(2deg); }
+    66% { transform: translateY(-4px) translateX(-3px) rotate(-1deg); }
+    100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  }
+  --animate-float-drift: float-drift 8s ease-in-out infinite;
+}
+
+@layer base {
+  body {
+    @apply font-inter text-dental-text bg-dental-bg antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins font-bold tracking-tight text-brand-navy;
+  }
+}
+
+@layer utilities {
+  .btn {
+    @apply inline-flex items-center justify-center h-[52px] px-8 rounded-full font-poppins font-semibold text-[15px] tracking-wide no-underline transition-all duration-300 relative overflow-hidden;
+  }
+  .btn:hover {
+    @apply shadow-[0_8px_24px_rgba(34,72,136,0.15)] -translate-y-[2px];
+  }
+  
+  .btn-primary {
+    @apply bg-brand-navy text-white hover:opacity-90;
+  }
+  .btn-secondary {
+    @apply bg-brand-sky text-brand-navy hover:brightness-110;
+  }
+
+  .fade-in {
+    @apply opacity-0 translate-y-6 transition-all duration-700 ease-out;
+  }
+  .fade-in.visible {
+    @apply opacity-100 translate-y-0;
+  }
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg border border-white/50 shadow-[0_12px_40px_-12px_rgba(34,72,136,0.1)];
+  }
+
+  .mask-tooth {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cpath d='M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cpath d='M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  .floating-pill {
+    @apply absolute inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-[0_8px_30px_rgb(34,72,136,0.08)] font-inter font-bold text-[13px] text-brand-navy tracking-tight z-30 animate-float;
+  }
+
+  .brand-bg-gradient {
+    background: linear-gradient(135deg, var(--color-brand-sky-soft) 0%, var(--color-brand-sky-light) 60%, #FFFFFF 100%);
+  }
+}

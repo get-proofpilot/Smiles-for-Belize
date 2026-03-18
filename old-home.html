@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smiles for Belize — Free Dental Care for Belizean Communities</title>
+<meta name="description" content="Smiles for Belize provides free dental care, screenings, and oral health education to underserved communities across Belize. Join us in building brighter futures, one smile at a time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   DESIGN TOKENS
+   ══════════════════════════════════════════ */
+:root {
+  --blue-deep: #0F3B7C;
+  --blue: #1B5AAF;
+  --blue-light: #7CB9E8;
+  --blue-pale: #E8F2FC;
+  --blue-glow: rgba(27, 90, 175, 0.12);
+  --coral: #E8734A;
+  --coral-dark: #d4573a;
+  --coral-light: #FFF0EB;
+  --coral-glow: rgba(232, 115, 74, 0.12);
+  --gold: #F5C04A;
+  --gold-light: #FFF8E7;
+  --green: #4CAF7D;
+  --green-pale: #E8F8EF;
+  --white: #FFFFFF;
+  --warm-cream: #FBF8F4;
+  --warm-sand: #F5F0E8;
+  --g100: #F4F5F7;
+  --g200: #E2E5EA;
+  --g400: #9CA3AF;
+  --g600: #5A6270;
+  --g800: #2D3240;
+  --g900: #1A1E2A;
+  --r: 20px;
+  --rs: 12px;
+  --shadow-sm: 0 2px 8px rgba(15,59,124,0.06);
+  --shadow-md: 0 8px 30px rgba(15,59,124,0.08), 0 2px 4px rgba(0,0,0,0.03);
+  --shadow-lg: 0 20px 60px rgba(15,59,124,0.12), 0 4px 8px rgba(0,0,0,0.04);
+}
+
+/* ══════════════════════════════════════════
+   RESET & BASE
+   ══════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--g800);background:var(--warm-cream);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+
+/* Grain texture */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── Animations ── */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes float-slow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+@keyframes glow-pulse{0%,100%{opacity:0.08}50%{opacity:0.2}}
+@keyframes fade-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes count-in{from{opacity:0;transform:translateY(20px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes slide-right{from{width:0}to{width:var(--w)}}
+
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity 0.7s cubic-bezier(0.4,0,0.2,1),transform 0.7s cubic-bezier(0.4,0,0.2,1)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-delay-1{transition-delay:0.1s}
+.fade-in-delay-2{transition-delay:0.2s}
+.fade-in-delay-3{transition-delay:0.3s}
+
+/* ── Tooth SVG path (reused) ── */
+/* M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z */
+
+/* ══════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:15px 30px;border-radius:100px;
+  font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;
+  text-decoration:none;transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  border:none;cursor:pointer;position:relative;overflow:hidden;
+}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);opacity:0;transition:opacity 0.25s}
+.btn:hover::after{opacity:1}
+.btn:hover{transform:translateY(-2px)}
+.btn-coral{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:white;box-shadow:0 6px 20px rgba(232,115,74,0.35)}
+.btn-coral:hover{box-shadow:0 10px 28px rgba(232,115,74,0.45)}
+.btn-white{background:white;color:var(--blue-deep);box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.btn-white:hover{box-shadow:0 8px 24px rgba(0,0,0,0.15)}
+.btn-blue{background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:white;box-shadow:0 4px 16px rgba(27,90,175,0.3)}
+.btn-outline-w{background:rgba(255,255,255,0.06);color:white;border:2px solid rgba(255,255,255,0.3);backdrop-filter:blur(8px)}
+.btn-outline-w:hover{border-color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.1)}
+.btn-outline-blue{background:transparent;color:var(--blue);border:2px solid var(--blue);padding:13px 28px}
+.btn-outline-blue:hover{background:var(--blue);color:white}
+
+/* ── Section label utility ── */
+.section-label{
+  font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.section-label::before,.section-label::after{content:'';width:24px;height:2px;background:linear-gradient(90deg,var(--blue-light),transparent);border-radius:2px}
+.section-label::before{background:linear-gradient(90deg,transparent,var(--blue-light))}
+.section-title{font-family:'Poppins',sans-serif;font-size:38px;font-weight:700;color:var(--g900);letter-spacing:-0.5px;line-height:1.15}
+.section-title em{font-style:normal;color:var(--coral)}
+.section-subtitle{font-size:15px;color:var(--g600);margin-top:10px;max-width:560px;line-height:1.7}
+
+/* ══════════════════════════════════════════
+   1. NAVIGATION
+   ══════════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:16px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.nav.scrolled{
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(16px);
+  box-shadow:0 2px 20px rgba(15,59,124,0.08);
+  padding:10px 40px;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;color:white;transition:color 0.35s}
+.nav.scrolled .nav-logo{color:var(--g900)}
+.nav-logo svg{transition:fill 0.35s}
+.nav.scrolled .nav-logo svg{fill:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:rgba(255,255,255,0.8);transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--coral);transition:width 0.3s;border-radius:2px}
+.nav-links a:hover{color:white}
+.nav-links a:hover::after{width:100%}
+.nav.scrolled .nav-links a{color:var(--g600)}
+.nav.scrolled .nav-links a:hover{color:var(--g900)}
+.nav-donate{padding:10px 24px;font-size:13px}
+.nav.scrolled .nav-donate{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:white}
+
+/* Mobile hamburger */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:1001}
+.nav-hamburger span{width:24px;height:2px;background:white;transition:all 0.3s;border-radius:2px}
+.nav.scrolled .nav-hamburger span{background:var(--g800)}
+
+/* ══════════════════════════════════════════
+   2. HERO
+   ══════════════════════════════════════════ */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(10,45,94,0.92) 0%,rgba(15,59,124,0.78) 30%,rgba(27,90,175,0.55) 60%,rgba(124,185,232,0.2) 100%)}
+.hero-bg::before{content:'';position:absolute;inset:0;z-index:1;background-image:radial-gradient(circle at 15% 85%,rgba(232,115,74,0.08) 0%,transparent 40%)}
+
+/* Decorative elements */
+.hero-dots{position:absolute;top:120px;right:60px;z-index:1;display:grid;grid-template-columns:repeat(5,8px);gap:14px;opacity:0.12}
+.hero-dots span{width:8px;height:8px;border-radius:50%;background:white}
+.hero-ring{position:absolute;border:2px solid rgba(255,255,255,0.05);border-radius:50%;z-index:1;pointer-events:none}
+.hero-ring-1{width:500px;height:500px;bottom:-200px;right:-150px}
+.hero-ring-2{width:350px;height:350px;bottom:-120px;right:-60px}
+.hero-ring-3{width:600px;height:600px;top:-250px;left:-200px;border-color:rgba(255,255,255,0.03)}
+.hero-tooth{position:absolute;z-index:1;pointer-events:none;opacity:0.04}
+
+.hero-content{position:relative;z-index:2;padding:140px 64px 100px;max-width:750px;color:white}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+  border-radius:100px;padding:8px 20px;font-size:12px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px;
+  backdrop-filter:blur(12px);animation:fade-up 0.8s ease-out both;
+}
+.hero h1{
+  font-family:'Poppins',sans-serif;font-size:clamp(38px,5.5vw,62px);
+  font-weight:800;line-height:1.06;margin-bottom:20px;letter-spacing:-1.5px;
+  animation:fade-up 0.8s ease-out 0.15s both;
+}
+.hero h1 span{color:var(--blue-light);text-shadow:0 0 50px rgba(124,185,232,0.25)}
+.hero-subtitle{font-size:17px;opacity:0.85;line-height:1.75;margin-bottom:36px;max-width:540px;animation:fade-up 0.8s ease-out 0.3s both}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;animation:fade-up 0.8s ease-out 0.45s both}
+
+/* Scroll indicator */
+.hero-scroll{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(255,255,255,0.4);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  animation:fade-up 0.8s ease-out 0.6s both;
+}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(180deg,rgba(255,255,255,0.4),transparent);animation:float 2s ease-in-out infinite}
+
+/* ══════════════════════════════════════════
+   WAVE DIVIDERS
+   ══════════════════════════════════════════ */
+.wave-divider{position:relative;overflow:hidden;margin-top:-1px;line-height:0}
+.wave-divider svg{display:block;width:100%;height:100%}
+
+/* ══════════════════════════════════════════
+   3. PROGRAMS
+   ══════════════════════════════════════════ */
+.programs{padding:100px 48px 80px;position:relative;overflow:hidden}
+.programs::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(27,90,175,0.04) 1.2px,transparent 1.2px);background-size:30px 30px;pointer-events:none}
+.programs .deco-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.programs .deco-blob-1{width:300px;height:300px;background:var(--blue-glow);top:-100px;right:-50px;opacity:0.5}
+.programs .deco-blob-2{width:250px;height:250px;background:var(--coral-glow);bottom:-80px;left:-40px;opacity:0.4}
+.programs-head{text-align:center;margin-bottom:56px;position:relative;z-index:1}
+.programs-head .section-subtitle{margin-left:auto;margin-right:auto}
+.programs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative;z-index:1}
+.prog-card{
+  background:white;border-radius:var(--r);overflow:hidden;
+  border:1px solid rgba(27,90,175,0.06);
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:var(--shadow-sm);position:relative;cursor:pointer;
+}
+.prog-card::after{content:'';position:absolute;inset:0;border-radius:var(--r);border:2px solid transparent;transition:border-color 0.3s;pointer-events:none}
+.prog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.prog-card:hover::after{border-color:rgba(27,90,175,0.1)}
+.prog-card-img{height:200px;overflow:hidden;position:relative}
+.prog-card-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,rgba(0,0,0,0.04));pointer-events:none}
+.prog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1)}
+.prog-card:hover .prog-card-img img{transform:scale(1.06)}
+.prog-card-body{padding:24px}
+.prog-card-icon{
+  width:72px;height:72px;margin-bottom:14px;
+}
+.prog-card-icon img{width:100%;height:100%;object-fit:contain}
+.prog-card h3{font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:var(--g900);margin-bottom:8px;letter-spacing:-0.2px}
+.prog-card p{font-size:13px;color:var(--g600);line-height:1.65}
+
+/* ══════════════════════════════════════════
+   4. IMPACT STATS
+   ══════════════════════════════════════════ */
+.stats{
+  padding:88px 48px;position:relative;overflow:hidden;text-align:center;color:white;
+  background:linear-gradient(155deg,#091e40 0%,var(--blue-deep) 30%,var(--blue) 65%,#3b7dda 100%);
+}
+.stats .stat-mesh{position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 15% 50%,rgba(124,185,232,0.12) 0%,transparent 45%),
+    radial-gradient(circle at 85% 30%,rgba(232,115,74,0.06) 0%,transparent 35%),
+    radial-gradient(circle at 50% 90%,rgba(124,185,232,0.08) 0%,transparent 40%);
+}
+.stats .stat-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.stats .stat-ring{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,0.04);pointer-events:none}
+.stats .stat-ring-1{width:500px;height:500px;top:-200px;right:-150px}
+.stats .stat-ring-2{width:350px;height:350px;top:-120px;right:-80px}
+.stats .stat-ring-3{width:300px;height:300px;bottom:-150px;left:-100px}
+.stats-head{position:relative;margin-bottom:56px;z-index:1}
+.stats-head h2{font-family:'Poppins',sans-serif;font-size:40px;font-weight:800;letter-spacing:-0.5px}
+.stats-head p{font-size:15px;opacity:0.6;margin-top:10px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;z-index:1}
+.stat-item{
+  padding:36px 20px;position:relative;
+  background:rgba(255,255,255,0.04);border-radius:var(--r);
+  border:1px solid rgba(255,255,255,0.06);
+  transition:all 0.3s;
+}
+.stat-item:hover{background:rgba(255,255,255,0.07);transform:translateY(-3px)}
+.stat-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;
+}
+.stat-num{
+  font-family:'Poppins',sans-serif;font-size:52px;font-weight:800;line-height:1;
+  background:linear-gradient(180deg,#ffffff,rgba(255,255,255,0.8));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-label{font-size:14px;opacity:0.6;margin-top:8px;font-weight:500}
+
+/* ══════════════════════════════════════════
+   5. AMBASSADOR
+   ══════════════════════════════════════════ */
+.ambassador{
+  padding:100px 48px;background:white;
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+  max-width:1300px;margin:0 auto;position:relative;overflow:hidden;
+}
+.amb-photo{position:relative;z-index:1}
+.amb-photo>img{border-radius:var(--r);width:100%;box-shadow:var(--shadow-lg)}
+.amb-photo::before{content:'';position:absolute;top:-12px;left:-12px;right:12px;bottom:12px;border:2px solid var(--blue-light);border-radius:var(--r);opacity:0.15;z-index:-1}
+.amb-photo .amb-accent{
+  position:absolute;bottom:-24px;right:-24px;width:160px;height:160px;
+  border-radius:var(--r);border:5px solid white;
+  box-shadow:var(--shadow-md);overflow:hidden;z-index:2;
+}
+.amb-photo .amb-accent img{width:100%;height:100%;object-fit:cover}
+.amb-photo .amb-badge{
+  position:absolute;top:16px;left:16px;
+  background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:white;
+  padding:6px 16px;border-radius:8px;font-size:11px;font-weight:700;
+  letter-spacing:0.5px;text-transform:uppercase;
+  box-shadow:0 4px 12px rgba(232,115,74,0.3);
+}
+.amb-text{position:relative;z-index:1}
+.amb-text .section-label{justify-content:flex-start}
+.amb-text h2{font-family:'Poppins',sans-serif;font-size:36px;font-weight:700;color:var(--g900);margin-bottom:18px;line-height:1.2;letter-spacing:-0.5px}
+.amb-text p{font-size:15px;color:var(--g600);line-height:1.75;margin-bottom:16px}
+.amb-quote{
+  border-left:4px solid var(--blue);padding:20px 24px;
+  background:linear-gradient(135deg,var(--blue-pale),rgba(232,242,252,0.5));
+  border-radius:0 var(--rs) var(--rs) 0;margin:28px 0;
+  position:relative;
+}
+.amb-quote::before{content:'\201C';position:absolute;top:-8px;left:12px;font-family:'Poppins',sans-serif;font-size:48px;color:var(--blue-light);line-height:1;opacity:0.4}
+.amb-quote p{font-family:'Poppins',sans-serif;font-size:17px;font-weight:500;color:var(--blue-deep);font-style:italic;margin-bottom:0;padding-left:24px}
+.amb-quote cite{font-size:13px;color:var(--g400);font-style:normal;display:block;margin-top:10px;padding-left:24px}
+
+/* Deco dots behind ambassador */
+.amb-deco{position:absolute;top:40px;right:0;display:grid;grid-template-columns:repeat(4,6px);gap:10px;opacity:0.06;z-index:0}
+.amb-deco span{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+
+/* ══════════════════════════════════════════
+   6. B&W PHOTO STRIP
+   ══════════════════════════════════════════ */
+.bw-strip{display:flex;overflow:hidden;position:relative}
+.bw-strip img{width:20%;height:200px;object-fit:cover;flex-shrink:0;filter:grayscale(1) contrast(1.05);transition:filter 0.5s cubic-bezier(0.4,0,0.2,1),transform 0.5s}
+.bw-strip img:hover{filter:grayscale(0);transform:scale(1.05);z-index:1}
+
+/* ══════════════════════════════════════════
+   7. WHERE WE WORK
+   ══════════════════════════════════════════ */
+.where{
+  padding:100px 48px;background:white;
+  display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:center;
+  max-width:1300px;margin:0 auto;position:relative;overflow:hidden;
+}
+.where-img{border-radius:var(--r);overflow:hidden;position:relative;box-shadow:var(--shadow-lg)}
+.where-img img{width:100%;height:440px;object-fit:cover}
+.where-img .where-badge{
+  position:absolute;bottom:20px;left:20px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:white;
+  padding:14px 22px;border-radius:var(--rs);
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:16px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 6px 20px rgba(15,59,124,0.35);
+  backdrop-filter:blur(8px);
+}
+.where-img .where-badge strong{font-size:32px;font-weight:800;line-height:1}
+.where-text .section-label{justify-content:flex-start}
+.where-text h2{font-family:'Poppins',sans-serif;font-size:34px;font-weight:700;color:var(--g900);margin-bottom:16px;line-height:1.2;letter-spacing:-0.5px}
+.where-text>p{font-size:15px;color:var(--g600);line-height:1.75;margin-bottom:28px}
+.where-list{list-style:none;display:flex;flex-direction:column;gap:14px}
+.where-list li{display:flex;align-items:center;gap:14px;font-size:15px;color:var(--g800);font-weight:500;transition:transform 0.2s}
+.where-list li:hover{transform:translateX(4px)}
+.where-list .wl-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:linear-gradient(135deg,var(--blue-pale),rgba(124,185,232,0.15));
+  color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  border:1px solid rgba(27,90,175,0.08);
+}
+
+/* ══════════════════════════════════════════
+   8. TESTIMONIALS
+   ══════════════════════════════════════════ */
+.testimonials{
+  padding:100px 48px;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,var(--warm-cream),var(--warm-sand));
+}
+.testimonials::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(245,192,74,0.04) 1.2px,transparent 1.2px);background-size:24px 24px;pointer-events:none}
+.testimonials-head{text-align:center;margin-bottom:48px;position:relative;z-index:1}
+.testimonials-head .section-subtitle{margin-left:auto;margin-right:auto}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative;z-index:1;max-width:1200px;margin:0 auto}
+.test-card{
+  background:white;border-radius:var(--r);padding:32px;
+  border:1px solid rgba(27,90,175,0.05);
+  position:relative;box-shadow:var(--shadow-sm);
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.test-card::before{content:'';position:absolute;top:0;left:24px;right:24px;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--blue),var(--blue-light));opacity:0;transition:opacity 0.3s}
+.test-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.test-card:hover::before{opacity:1}
+.test-quote-mark{font-family:'Poppins',sans-serif;font-size:56px;color:var(--blue-pale);line-height:1;margin-bottom:-12px}
+.test-stars{display:flex;gap:2px;margin-bottom:16px}
+.test-star{width:18px;height:18px;color:var(--gold)}
+.test-card blockquote{font-size:14px;color:var(--g600);line-height:1.7;margin-bottom:20px}
+.test-author{display:flex;align-items:center;gap:14px;padding-top:16px;border-top:1px solid var(--g100)}
+.test-avatar{width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid var(--blue-pale);box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.test-avatar img{width:100%;height:100%;object-fit:cover}
+.test-author-info strong{font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:var(--g900);display:block}
+.test-author-info span{font-size:12px;color:var(--g400)}
+
+/* ══════════════════════════════════════════
+   9. DONATE CTA
+   ══════════════════════════════════════════ */
+.donate{
+  padding:100px 48px;text-align:center;position:relative;overflow:hidden;color:white;
+  background:linear-gradient(155deg,var(--coral) 0%,var(--coral-dark) 40%,#b84530 80%,#9e3a28 100%);
+}
+.donate .donate-mesh{position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,0.08) 0%,transparent 40%),
+    radial-gradient(circle at 80% 70%,rgba(245,192,74,0.1) 0%,transparent 35%),
+    radial-gradient(circle at 50% 10%,rgba(255,255,255,0.05) 0%,transparent 30%);
+}
+.donate .donate-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+.donate .donate-ring{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,0.06);pointer-events:none}
+.donate .donate-ring-1{width:400px;height:400px;top:-150px;left:-100px}
+.donate .donate-ring-2{width:300px;height:300px;bottom:-100px;right:-80px}
+.donate h2{font-family:'Poppins',sans-serif;font-size:44px;font-weight:800;position:relative;z-index:1;margin-bottom:14px;letter-spacing:-0.5px}
+.donate>p{font-size:17px;opacity:0.85;max-width:560px;margin:0 auto 36px;position:relative;z-index:1;line-height:1.7}
+.donate-amounts{display:flex;justify-content:center;gap:14px;margin-bottom:32px;position:relative;z-index:1;flex-wrap:wrap}
+.donate-amount{
+  width:68px;height:68px;border-radius:50%;
+  border:2px solid rgba(255,255,255,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:16px;color:white;
+  transition:all 0.25s cubic-bezier(0.4,0,0.2,1);cursor:pointer;
+  background:rgba(255,255,255,0.06);backdrop-filter:blur(4px);
+}
+.donate-amount:hover,.donate-amount--active{
+  background:white;color:var(--coral);border-color:white;
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);transform:scale(1.08);
+}
+.donate .btn{position:relative;z-index:1}
+.donate-subtext{font-size:13px;opacity:0.6;margin-top:20px;position:relative;z-index:1}
+
+/* ══════════════════════════════════════════
+   10. FOOTER
+   ══════════════════════════════════════════ */
+.footer{
+  background:var(--g900);color:rgba(255,255,255,0.6);padding:80px 48px 40px;
+  position:relative;overflow:hidden;
+}
+.footer::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 30% 20%,rgba(27,90,175,0.06) 0%,transparent 50%);pointer-events:none}
+.footer-grid{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;
+  max-width:1200px;margin:0 auto;position:relative;z-index:1;
+}
+.footer-brand{display:flex;flex-direction:column;gap:16px}
+.footer-brand .footer-logo{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;color:white}
+.footer-brand p{font-size:14px;line-height:1.7;max-width:280px}
+.footer-social{display:flex;gap:12px;margin-top:8px}
+.footer-social a{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.3s;
+}
+.footer-social a:hover{background:rgba(255,255,255,0.12);transform:translateY(-2px)}
+.footer-col h4{font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:white;margin-bottom:20px;letter-spacing:0.5px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col a{font-size:14px;transition:color 0.2s}
+.footer-col a:hover{color:white}
+.footer-bottom{
+  max-width:1200px;margin:48px auto 0;padding-top:28px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;position:relative;z-index:1;
+}
+.footer-bottom a{transition:color 0.2s}
+.footer-bottom a:hover{color:white}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+@media(max-width:1024px){
+  .programs-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .ambassador{grid-template-columns:1fr;max-width:700px;gap:40px}
+  .where{grid-template-columns:1fr;max-width:700px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav{padding:12px 20px}
+  .nav.scrolled{padding:8px 20px}
+  .nav-links{
+    display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+    flex-direction:column;justify-content:center;align-items:center;gap:28px;
+    background:rgba(15,59,124,0.97);backdrop-filter:blur(20px);
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{color:white;font-size:18px;opacity:0.9}
+  .nav-hamburger{display:flex}
+  .hero-content{padding:120px 24px 80px}
+  .hero h1{letter-spacing:-0.5px}
+  .hero-dots{display:none}
+  .programs{padding:60px 20px}
+  .programs-grid,.stats-grid,.test-grid{grid-template-columns:1fr}
+  .stats{padding:60px 20px}
+  .stats-head h2{font-size:30px}
+  .stat-num{font-size:42px}
+  .ambassador{padding:60px 20px;grid-template-columns:1fr}
+  .amb-photo .amb-accent{width:120px;height:120px;bottom:-16px;right:-16px}
+  .bw-strip img{width:50%;height:140px}
+  .where{padding:60px 20px;grid-template-columns:1fr}
+  .where-img img{height:280px}
+  .testimonials{padding:60px 20px}
+  .donate{padding:60px 20px}
+  .donate h2{font-size:32px}
+  .section-title{font-size:28px}
+  .footer{padding:48px 20px 32px}
+  .footer-grid{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+  .amb-deco{display:none}
+}
+@media(max-width:480px){
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%;justify-content:center}
+  .donate-amounts{gap:10px}
+  .donate-amount{width:58px;height:58px;font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION
+     ══════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <svg width="28" height="32" viewBox="0 0 100 120" fill="white"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+    Smiles for Belize
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#ambassador">Ambassador</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#donate" class="btn btn-coral nav-donate">Donate</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="images/ambassador-kids-school-bench.jpg" alt="Faith Edgar, Miss World Belize 2025, with school children during a dental outreach visit" width="1920" height="1080">
+  </div>
+  <!-- Decorative elements -->
+  <div class="hero-dots">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="hero-ring hero-ring-1"></div>
+  <div class="hero-ring hero-ring-2"></div>
+  <div class="hero-ring hero-ring-3"></div>
+  <svg class="hero-tooth" style="bottom:80px;right:100px;animation:float-slow 7s ease-in-out infinite" width="60" height="72" viewBox="0 0 100 120" fill="white"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+  <svg class="hero-tooth" style="top:160px;left:80px;animation:float 9s ease-in-out infinite 1s" width="36" height="44" viewBox="0 0 100 120" fill="white"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="14" height="16" viewBox="0 0 100 120" fill="currentColor" opacity="0.6"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+      Healthy Teeth, Happy Life
+    </div>
+    <h1>Every Child Deserves a <span>Healthy Smile</span></h1>
+    <p class="hero-subtitle">Free dental care and oral health education for underserved communities across Belize. Join us in building brighter futures, one smile at a time.</p>
+    <div class="hero-actions">
+      <a href="#donate" class="btn btn-coral">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Donate Now
+      </a>
+      <a href="#programs" class="btn btn-outline-w">Our Programs</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- Wave: Hero to Programs -->
+<div class="wave-divider" style="height:50px;background:var(--warm-cream)">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none">
+    <path d="M0,0 C360,50 720,0 1080,35 C1260,48 1380,15 1440,0 L1440,0 L0,0 Z" fill="var(--blue-deep)"/>
+  </svg>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PROGRAMS
+     ══════════════════════════════════════════ -->
+<section class="programs" id="programs">
+  <div class="deco-blob deco-blob-1"></div>
+  <div class="deco-blob deco-blob-2"></div>
+
+  <div class="programs-head fade-in" id="mission">
+    <div class="section-label">Our Programs</div>
+    <h2 class="section-title">The <em>Heart</em> of Our Work</h2>
+    <p class="section-subtitle">Comprehensive dental care and education delivered directly to Belizean communities where it's needed most.</p>
+  </div>
+
+  <div class="programs-grid">
+    <div class="prog-card fade-in">
+      <div class="prog-card-img"><img src="images/clinic-wide.jpg" alt="Volunteer dentists providing free dental treatment at a community clinic in Belize" width="600" height="400" loading="lazy"></div>
+      <div class="prog-card-body">
+        <div class="prog-card-icon">
+          <img src="images/icons/icon-dental-clinic.png" alt="" width="56" height="56">
+        </div>
+        <h3>Community Dental Clinics</h3>
+        <p>Free dental treatment provided in community centers and covered pavilions across Belize, staffed by volunteer dentists.</p>
+      </div>
+    </div>
+
+    <div class="prog-card fade-in fade-in-delay-1">
+      <div class="prog-card-img"><img src="images/screening-child-outdoor.jpg" alt="Dental screening for a child at a school outreach visit" width="600" height="400" loading="lazy"></div>
+      <div class="prog-card-body">
+        <div class="prog-card-icon">
+          <img src="images/icons/icon-healthy-smile.png" alt="" width="56" height="56">
+        </div>
+        <h3>School Screenings</h3>
+        <p>On-site dental checkups and screenings at schools throughout Belize City, San Pedro, and surrounding communities.</p>
+      </div>
+    </div>
+
+    <div class="prog-card fade-in fade-in-delay-2">
+      <div class="prog-card-img"><img src="images/students-brushing-uniforms.jpg" alt="Students in uniforms practicing tooth brushing techniques outdoors" width="600" height="400" loading="lazy"></div>
+      <div class="prog-card-body">
+        <div class="prog-card-icon">
+          <img src="images/icons/icon-oral-hygiene.png" alt="" width="56" height="56">
+        </div>
+        <h3>Oral Health Education</h3>
+        <p>Fun, hands-on brushing workshops and dental hygiene lessons that give children the tools to care for their teeth.</p>
+      </div>
+    </div>
+
+    <div class="prog-card fade-in fade-in-delay-3">
+      <div class="prog-card-img"><img src="images/ambassador-serving-community.jpg" alt="Volunteers serving food and engaging with community members in Belize" width="600" height="400" loading="lazy"></div>
+      <div class="prog-card-body">
+        <div class="prog-card-icon">
+          <img src="images/icons/icon-dentist-shield.png" alt="" width="56" height="56">
+        </div>
+        <h3>Community Outreach</h3>
+        <p>Food drives, community meals, and volunteer events that go beyond dental care to support families across Belize.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     IMPACT STATS
+     ══════════════════════════════════════════ -->
+<section class="stats" id="impact">
+  <div class="stat-mesh"></div>
+  <div class="stat-dots"></div>
+  <div class="stat-ring stat-ring-1"></div>
+  <div class="stat-ring stat-ring-2"></div>
+  <div class="stat-ring stat-ring-3"></div>
+  <!-- Floating tooth accents -->
+  <svg style="position:absolute;bottom:30px;left:40px;opacity:0.04;animation:float 8s ease-in-out infinite;pointer-events:none;z-index:0" width="50" height="60" viewBox="0 0 100 120" fill="white"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+  <svg style="position:absolute;top:40px;right:80px;opacity:0.03;animation:float-slow 10s ease-in-out infinite 2s;pointer-events:none;z-index:0" width="40" height="48" viewBox="0 0 100 120" fill="white"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+
+  <div class="stats-head fade-in">
+    <h2>Our Impact in Belize</h2>
+    <p>Real numbers from real communities</p>
+  </div>
+
+  <div class="stats-grid" style="max-width:1100px;margin:0 auto">
+    <div class="stat-item fade-in">
+      <div class="stat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9.5" r="1" fill="white" stroke="none"/><circle cx="15" cy="9.5" r="1" fill="white" stroke="none"/></svg>
+      </div>
+      <div class="stat-num">1,200+</div>
+      <div class="stat-label">Children Treated</div>
+    </div>
+    <div class="stat-item fade-in fade-in-delay-1">
+      <div class="stat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      </div>
+      <div class="stat-num">15</div>
+      <div class="stat-label">Schools Visited</div>
+    </div>
+    <div class="stat-item fade-in fade-in-delay-2">
+      <div class="stat-icon">
+        <svg width="20" height="24" viewBox="0 0 100 120" fill="none" stroke="white" stroke-width="8"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+      </div>
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Volunteer Dentists</div>
+    </div>
+    <div class="stat-item fade-in fade-in-delay-3">
+      <div class="stat-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="stat-num">6</div>
+      <div class="stat-label">Communities Served</div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: Stats to Ambassador -->
+<div class="wave-divider" style="height:50px;background:white">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none">
+    <path d="M0,0 C480,50 960,0 1440,30 L1440,0 L0,0 Z" fill="var(--blue)"/>
+  </svg>
+</div>
+
+<!-- ══════════════════════════════════════════
+     AMBASSADOR
+     ══════════════════════════════════════════ -->
+<section style="background:white;padding-bottom:0" id="ambassador">
+  <div class="ambassador">
+    <!-- Deco dots -->
+    <div class="amb-deco">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="amb-photo fade-in">
+      <div class="amb-badge">Ambassador</div>
+      <img src="images/ambassador-crown-waving.jpg" alt="Faith Edgar, Miss World Belize 2025, wearing her crown and sash while waving to the community" width="800" height="1000" loading="lazy">
+      <div class="amb-accent"><img src="images/ambassador-goggles-treating.jpg" alt="Faith Edgar performing dental work in safety goggles" width="300" height="300" loading="lazy"></div>
+    </div>
+
+    <div class="amb-text fade-in">
+      <div class="section-label">Our Ambassador</div>
+      <h2>Meet Faith Edgar, Miss World Belize 2025</h2>
+      <p>As our brand ambassador, Faith bridges the stage and the streets — bringing international visibility to Belize's oral health crisis while rolling up her sleeves in community clinics and classrooms.</p>
+      <p>From dental screenings in San Pedro to brushing workshops in Belize City schools, she's in the community, not above it. Her Beauty with a Purpose project brings dental care to children who have never seen a dentist.</p>
+      <div class="amb-quote">
+        <p>"Every child deserves to smile without pain. That's why I'm here — not on a stage, but in the communities that need us."</p>
+        <cite>Faith Edgar, Miss World Belize 2025</cite>
+      </div>
+      <a href="#" class="btn btn-blue">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Read Her Story
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     B&W PHOTO STRIP
+     ══════════════════════════════════════════ -->
+<div class="bw-strip">
+  <img src="images/screening-child-closeup.jpg" alt="Close-up of a dental screening for a child" loading="lazy">
+  <img src="images/dental-instruments-detail.jpg" alt="Professional dental instruments laid out for a community clinic" loading="lazy">
+  <img src="images/ambassador-treating-patient.jpg" alt="Faith Edgar treating a patient during a dental clinic" loading="lazy">
+  <img src="images/child-brushing-closeup.jpg" alt="A child practicing brushing with a red toothbrush" loading="lazy">
+  <img src="images/kids-peace-sign-classroom.jpg" alt="Children smiling and making peace signs in a classroom" loading="lazy">
+</div>
+
+<!-- ══════════════════════════════════════════
+     WHERE WE WORK
+     ══════════════════════════════════════════ -->
+<section style="background:white">
+  <div class="where fade-in">
+    <div class="where-img">
+      <img src="images/volunteers-talking-students.jpg" alt="Volunteers engaging with students at a school in Belize" width="800" height="500" loading="lazy">
+      <div class="where-badge">
+        <strong>6</strong>
+        <div>Communities<br>across Belize</div>
+      </div>
+    </div>
+    <div class="where-text">
+      <div class="section-label">Where We Work</div>
+      <h2>Transforming Smiles Across Belize</h2>
+      <p>From island communities to inland villages, our volunteer dental teams travel to where care is needed most — setting up clinics in schools, community centers, and covered pavilions.</p>
+      <ul class="where-list">
+        <li>
+          <div class="wl-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          San Pedro, Ambergris Caye
+        </li>
+        <li>
+          <div class="wl-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          Belize City
+        </li>
+        <li>
+          <div class="wl-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          Orange Walk Town
+        </li>
+        <li>
+          <div class="wl-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          Dangriga &amp; Southern Belize
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TESTIMONIALS
+     ══════════════════════════════════════════ -->
+<section class="testimonials" id="community">
+  <div class="testimonials-head fade-in">
+    <div class="section-label" style="justify-content:center">Community Voices</div>
+    <h2 class="section-title">What People Are Saying</h2>
+    <p class="section-subtitle" style="margin-left:auto;margin-right:auto">The impact of a healthy smile goes far beyond teeth. Hear from the families, teachers, and volunteers who make this work possible.</p>
+  </div>
+
+  <div class="test-grid">
+    <div class="test-card fade-in">
+      <div class="test-quote-mark">&ldquo;</div>
+      <div class="test-stars">
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+      </div>
+      <blockquote>My daughter had been complaining about her teeth for months. The Smiles for Belize clinic fixed everything in one visit — for free. I couldn't believe it. She smiles so much more now.</blockquote>
+      <div class="test-author">
+        <div class="test-avatar"><img src="images/ambassador-community-crowd.jpg" alt="" loading="lazy"></div>
+        <div class="test-author-info"><strong>Maria C.</strong><span>Parent, Belize City</span></div>
+      </div>
+    </div>
+
+    <div class="test-card fade-in fade-in-delay-1">
+      <div class="test-quote-mark">&ldquo;</div>
+      <div class="test-stars">
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+      </div>
+      <blockquote>Volunteering with this team in San Pedro was the most rewarding experience of my dental career. The kids' faces when they get their new toothbrushes — that's everything.</blockquote>
+      <div class="test-author">
+        <div class="test-avatar"><img src="images/ambassador-dental-work.jpg" alt="" loading="lazy"></div>
+        <div class="test-author-info"><strong>Dr. James R.</strong><span>Volunteer Dentist, USA</span></div>
+      </div>
+    </div>
+
+    <div class="test-card fade-in fade-in-delay-2">
+      <div class="test-quote-mark">&ldquo;</div>
+      <div class="test-stars">
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+        <svg class="test-star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.39 4.84L17.3 6.9l-3.65 3.56.86 5.03L10 13.17l-4.51 2.32.86-5.03L2.7 6.9l4.91-.76L10 1z"/></svg>
+      </div>
+      <blockquote>When Miss World Belize visited our school, the children were so excited. They still talk about it. Now they brush their teeth every day without being told!</blockquote>
+      <div class="test-author">
+        <div class="test-avatar"><img src="images/kids-smiling-classroom.jpg" alt="" loading="lazy"></div>
+        <div class="test-author-info"><strong>Mrs. Thompson</strong><span>Teacher, St. Andrew's School</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DONATE CTA
+     ══════════════════════════════════════════ -->
+<section class="donate" id="donate">
+  <div class="donate-mesh"></div>
+  <div class="donate-dots"></div>
+  <div class="donate-ring donate-ring-1"></div>
+  <div class="donate-ring donate-ring-2"></div>
+  <!-- Floating teeth -->
+  <svg style="position:absolute;top:30px;right:60px;opacity:0.06;animation:float-slow 6s ease-in-out infinite;pointer-events:none;z-index:0" width="44" height="52" viewBox="0 0 100 120" fill="white"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+  <svg style="position:absolute;bottom:40px;left:50px;opacity:0.05;animation:float 9s ease-in-out infinite 2s;pointer-events:none;z-index:0" width="36" height="42" viewBox="0 0 100 120" fill="white"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+
+  <div class="fade-in">
+    <h2>Give a Child a Reason to Smile</h2>
+    <p>Your donation provides free dental care, toothbrushes, and education to children across Belize who have never seen a dentist.</p>
+    <div class="donate-amounts">
+      <div class="donate-amount">$10</div>
+      <div class="donate-amount donate-amount--active">$25</div>
+      <div class="donate-amount">$50</div>
+      <div class="donate-amount">$100</div>
+    </div>
+    <a href="#" class="btn btn-white" style="font-size:16px;padding:18px 44px;box-shadow:0 8px 28px rgba(0,0,0,0.2)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      Donate Now
+    </a>
+    <p class="donate-subtext">$25 provides a dental checkup, cleaning, and hygiene kit for one child</p>
+  </div>
+</section>
+
+<!-- Wave: Donate to Footer -->
+<div class="wave-divider" style="height:40px;background:var(--g900)">
+  <svg viewBox="0 0 1440 40" preserveAspectRatio="none">
+    <path d="M0,0 C360,40 900,0 1440,25 L1440,0 L0,0 Z" fill="#9e3a28"/>
+  </svg>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <svg width="24" height="28" viewBox="0 0 100 120" fill="var(--blue-light)"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
+        Smiles for Belize
+      </div>
+      <p>Free dental care and oral health education for underserved communities across Belize. Healthy teeth, happy life.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="rgba(255,255,255,0.6)" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="rgba(255,255,255,0.6)" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#">Community Clinics</a></li>
+        <li><a href="#">School Screenings</a></li>
+        <li><a href="#">Oral Health Education</a></li>
+        <li><a href="#">Community Outreach</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Get Involved</h4>
+      <ul>
+        <li><a href="#">Donate</a></li>
+        <li><a href="#">Volunteer</a></li>
+        <li><a href="#">Partner with Us</a></li>
+        <li><a href="#">Spread the Word</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">Our Mission</a></li>
+        <li><a href="#">Our Ambassador</a></li>
+        <li><a href="#">News &amp; Stories</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>&copy; 2026 Smiles for Belize. All rights reserved.</span>
+    <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms of Service</a></span>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════ -->
+<script>
+(function(){
+  // ── Scroll-triggered fade-in ──
+  var fadeEls = document.querySelectorAll('.fade-in');
+  if (fadeEls.length) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach(function(el) { obs.observe(el); });
+  }
+
+  // ── Nav scroll behavior ──
+  var nav = document.getElementById('nav');
+  var scrolled = false;
+  function checkScroll() {
+    var s = window.scrollY > 60;
+    if (s !== scrolled) { scrolled = s; nav.classList.toggle('scrolled', s); }
+  }
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  checkScroll();
+
+  // ── Mobile hamburger ──
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', function() {
+    navLinks.classList.toggle('open');
+  });
+  // Close menu on link click
+  navLinks.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { navLinks.classList.remove('open'); });
+  });
+
+  // ── Donate amount selector ──
+  var amounts = document.querySelectorAll('.donate-amount');
+  amounts.forEach(function(el) {
+    el.addEventListener('click', function() {
+      amounts.forEach(function(a) { a.classList.remove('donate-amount--active'); });
+      el.classList.add('donate-amount--active');
+    });
+  });
+
+  // ── Smooth scroll for anchor links ──
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var id = this.getAttribute('href');
+      if (id.length > 1) {
+        var target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
