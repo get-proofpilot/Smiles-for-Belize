@@ -1,148 +1,165 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+
+const slides = [
+  {
+    img: 'ambassador-examining-child.jpg',
+    headline: '1,200 Children Treated with Comprehensive Care',
+    desc: 'From routine cleanings to emergency extractions, we provide free dental care to children who would otherwise go without.',
+  },
+  {
+    img: 'kids-smiling-classroom.jpg',
+    headline: '15 Schools Reached Across Belize',
+    desc: 'Our mobile clinics visit primary schools for screenings, fluoride treatments, and oral hygiene education.',
+  },
+  {
+    img: 'volunteers-talking-students.jpg',
+    headline: '50+ Volunteer Dentists and Counting',
+    desc: 'Expert dental professionals from around the world donate their time and skills to transform lives.',
+  },
+];
 
 const ImpactStats = () => {
+  const [current, setCurrent] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval>>();
+
+  const advance = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % slides.length);
+  }, []);
+
+  useEffect(() => {
+    timerRef.current = setInterval(advance, 5000);
+    return () => clearInterval(timerRef.current);
+  }, [advance]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      }),
       { threshold: 0.1 }
     );
-
-    const elements = containerRef.current?.querySelectorAll('.fade-in');
-    elements?.forEach((el) => observer.observe(el));
-
+    containerRef.current?.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+
+  const goToSlide = (i: number) => {
+    setCurrent(i);
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(advance, 5000);
+  };
 
   return (
     <section id="impact" className="relative py-24 bg-dental-bg flex flex-col items-center overflow-hidden" ref={containerRef}>
 
-      {/* Subtle SVG background decorations */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <svg className="absolute left-0 bottom-0 w-[200px] h-[250px] opacity-[0.05]" viewBox="0 0 200 250" fill="none" stroke="var(--color-brand-sky)" strokeWidth="3" strokeLinecap="round">
-          <path d="M20,250 C20,200 10,180 30,150 C40,130 25,120 35,100 C45,80 30,70 40,50 C50,30 35,20 50,10 M60,250 C60,220 70,200 55,180 C45,160 65,140 55,120 C50,100 65,80 60,60 M100,250 C100,230 90,210 105,190 C115,170 95,155 110,135 C120,115 105,100 115,80 C125,60 110,45 120,25 M140,250 C140,220 150,200 135,175 C125,155 145,135 135,115 C130,95 150,80 140,60 M180,250 C180,230 170,210 185,190 C190,170 175,155 185,140 C195,120 180,100 190,80 C195,60 185,45 195,30"/>
-        </svg>
+      {/* Headline left, paragraph right */}
+      <div className="relative z-10 w-full max-w-[1100px] mx-auto mb-16 px-6 fade-in flex flex-col md:flex-row justify-between items-start gap-8">
+        <h2 className="text-[40px] md:text-[56px] font-poppins font-black text-brand-navy tracking-tight leading-[1.1] shrink-0">
+          We're Making a <br/>
+          <span className="text-brand-sky bg-brand-sky-soft px-4 py-1 rounded-xl">Difference</span>
+        </h2>
+        <p className="font-inter text-[16px] md:text-[18px] text-brand-navy/70 leading-relaxed max-w-[450px] md:pt-4">
+          Smiles for Belize transforms lives by providing free, comprehensive dental care to underserved communities. We foster oral health and community well-being, creating a brighter future for thousands of children.
+        </p>
       </div>
 
-      {/* Hero & Intro Text */}
-      <div className="relative z-10 w-full max-w-[1100px] text-left mx-auto mb-16 px-6 fade-in flex flex-col md:flex-row justify-between items-end">
-        <div className="max-w-[600px]">
-          <h2 className="text-[40px] md:text-[56px] font-poppins font-black text-brand-navy tracking-tight mb-4 leading-[1.1]">
-            We're Making a <br/>
-            <span className="text-brand-sky bg-brand-sky-soft px-4 py-1 rounded-xl">Difference</span>
-          </h2>
-          <p className="font-inter text-[16px] md:text-[18px] text-brand-navy/70 leading-relaxed">
-            Smiles for Belize transforms lives by providing free, comprehensive dental care to underserved communities. We foster oral health and community well-being, creating a 
-            brighter future for thousands of children.
-          </p>
-        </div>
-        
-        <div className="mt-8 md:mt-0 pb-2">
-           <a href="#donate" className="bg-white text-brand-navy font-poppins font-bold text-[13px] uppercase tracking-widest px-8 py-4 rounded-full shadow-[0_12px_30px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-transform border border-brand-sky-soft flex items-center gap-3 group">
-             Our Impact 
-             <span className="w-8 h-8 rounded-full bg-brand-sky-soft text-brand-navy flex items-center justify-center group-hover:bg-brand-navy group-hover:text-white transition-colors">+</span>
-           </a>
-        </div>
-      </div>
+      {/* Bento Grid — 60/40 split */}
+      <div className="relative z-10 max-w-[1100px] w-full mx-auto px-6 fade-in delay-200 flex flex-col gap-6">
 
-      {/* The Bento Grid (Strict Brand Adherence) */}
-      <div className="relative z-10 max-w-[1100px] w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 fade-in delay-200">
-        
-        {/* Large Feature Card (Col Span 2) */}
-        <div className="md:col-span-2 md:row-span-2 relative rounded-[32px] overflow-hidden shadow-sm group">
-          <img src="/images/volunteers-talking-students.jpg" alt="Impact" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/95 via-brand-navy/50 to-transparent"></div>
-          
-          <div className="absolute bottom-0 left-0 w-full p-8 md:p-12">
-            <div className="w-16 h-16 bg-white rounded-2xl mb-8 flex items-center justify-center shadow-lg -rotate-3 overflow-hidden">
-               <img src="/images/illustrations/cutout-faith-examining.webp" alt="Care" className="w-full h-full object-cover"/>
+        {/* Top row: slideshow + right cards */}
+        <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-6">
+
+          {/* Large Slideshow Card — spans both right-side rows */}
+          <div className="md:row-span-2 relative rounded-[28px] overflow-hidden shadow-sm group cursor-pointer min-h-[420px] md:min-h-[480px]"
+            onClick={advance}
+          >
+            {slides.map((slide, i) => (
+              <img
+                key={i}
+                src={`/images/${slide.img}`}
+                alt={slide.headline}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === current ? 'opacity-100' : 'opacity-0'}`}
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            ))}
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/40 to-transparent"></div>
+
+            <div className="absolute bottom-0 left-0 w-full p-8 md:p-10">
+              <h3 className="font-poppins text-[22px] md:text-[26px] font-bold text-white leading-[1.3] tracking-tight mb-3 max-w-[480px]">
+                {slides[current].headline}
+              </h3>
+              <p className="font-inter text-[14px] text-white/70 leading-relaxed max-w-[440px] mb-6">
+                {slides[current].desc}
+              </p>
+
+              {/* Progress bars */}
+              <div className="flex gap-2.5 max-w-[240px]">
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={(e) => { e.stopPropagation(); goToSlide(i); }}
+                    className="flex-1 h-[4px] rounded-full bg-white/30 overflow-hidden"
+                  >
+                    <div
+                      className="h-full rounded-full bg-white transition-all duration-300"
+                      style={{ width: i === current ? '100%' : i < current ? '100%' : '0%', opacity: i <= current ? 1 : 0.3 }}
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
-            <p className="font-poppins text-[20px] md:text-[26px] font-semibold text-white leading-[1.4] tracking-tight max-w-[500px]">
-              "Many of these students had been living with severe pain for months. We couldn't save every tooth—but we saved their smile."
-            </p>
-            <div className="mt-6 flex items-center gap-4">
-              <span className="font-inter text-[14px] font-bold text-brand-sky uppercase tracking-widest block">Maria V.</span>
-              <span className="font-inter text-[14px] text-white/70">Lead Volunteer</span>
+          </div>
+
+          {/* Stat Card — top right */}
+          <div className="rounded-[28px] bg-white border border-brand-sky-light/30 p-7 flex flex-col shadow-sm relative overflow-hidden min-h-[220px]">
+            <div className="w-11 h-11 bg-brand-sky-soft rounded-xl flex items-center justify-center mb-auto">
+              <svg className="w-5 h-5 text-brand-sky" viewBox="0 0 100 120" fill="currentColor">
+                <path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/>
+              </svg>
             </div>
+            <h3 className="font-poppins text-[44px] font-black text-brand-navy leading-none tracking-tighter mb-1">
+              1,200+
+            </h3>
+            <span className="font-inter text-[14px] text-brand-navy/50">
+              Children treated with comprehensive care.
+            </span>
+          </div>
+
+          {/* Photo Card — bottom right */}
+          <div className="rounded-[28px] overflow-hidden shadow-sm relative min-h-[220px]">
+            <img
+              src="/images/ambassador-crown-community.jpg"
+              alt="Faith Edgar with community"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
         </div>
 
-        {/* Highlight Sky Blue Stat */}
-        <div className="rounded-[32px] bg-brand-sky text-white p-8 md:p-10 flex flex-col justify-end shadow-sm hover:shadow-[0_20px_40px_rgba(124,174,235,0.4)] transition-shadow relative overflow-hidden">
-          {/* Background tooth watermark */}
-          <svg className="absolute right-[-20px] top-[-20px] w-[140px] h-[170px] opacity-[0.12] rotate-12" viewBox="0 0 100 120" fill="white">
+        {/* CTA Card — full width */}
+        <div className="rounded-[28px] bg-brand-navy p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm relative overflow-hidden">
+          {/* Background watermark */}
+          <svg className="absolute right-[4%] top-[50%] -translate-y-1/2 w-[180px] h-[220px] opacity-[0.06] rotate-12" viewBox="0 0 100 120" fill="white">
             <path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/>
           </svg>
-          <div className="w-12 h-12 mb-auto bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-            <svg className="w-6 h-6 text-white" viewBox="0 0 100 120" fill="currentColor"><path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/></svg>
-          </div>
-          <h3 className="font-poppins text-[48px] md:text-[56px] font-black mb-1 leading-none tracking-tighter">
-            1,200+
-          </h3>
-          <span className="font-inter text-[15px] font-bold text-white/90 leading-tight">
-            Children treated with comprehensive care.
-          </span>
-        </div>
 
-        {/* Solid Navy Stat */}
-        <div className="rounded-[32px] bg-brand-navy p-8 md:p-10 flex flex-col justify-end shadow-sm hover:shadow-[0_20px_40px_rgba(34,72,136,0.3)] transition-shadow relative overflow-hidden">
-          {/* Background school icon watermark */}
-          <svg className="absolute right-[-10px] top-[-10px] w-[120px] h-[120px] opacity-[0.08]" viewBox="0 0 24 24" fill="white">
-            <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
-          </svg>
-          <div className="w-12 h-12 mb-auto bg-white/10 rounded-2xl flex items-center justify-center">
-            <svg className="w-6 h-6 text-brand-sky" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+          <div className="relative z-10 max-w-[520px]">
+            <h3 className="font-poppins text-[24px] md:text-[30px] font-bold text-white leading-[1.3] tracking-tight mb-2">
+              100% of Donations Go Directly to Care
+            </h3>
+            <p className="font-inter text-[15px] text-white/60 leading-relaxed">
+              Every dollar you give supports dental supplies, travel to remote communities, and hands-on treatment for children and families who need it most.
+            </p>
           </div>
-          <h3 className="font-poppins text-[48px] md:text-[56px] font-black text-white mb-1 leading-none tracking-tighter">
-            15
-          </h3>
-          <span className="font-inter text-[15px] font-bold text-brand-sky leading-tight">
-            Primary schools visited for local screenings.
-          </span>
-        </div>
 
-        {/* Lower Row Stats */}
-        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6 mt-0">
-          
-          <div className="bg-white border border-brand-sky-light/50 rounded-[32px] p-8 md:p-10 flex items-center justify-between shadow-sm hover:shadow-lg transition-shadow">
-            <div>
-              <h3 className="font-poppins text-[40px] md:text-[48px] font-black text-brand-navy mb-1 leading-none tracking-tighter">
-                50+
-              </h3>
-              <span className="font-inter text-[15px] font-bold text-brand-navy/60 leading-tight block max-w-[150px]">
-                Expert dentists volunteering time.
-              </span>
-            </div>
-            <div className="w-20 h-20 bg-brand-sky-soft rounded-full flex items-center justify-center">
-              <svg className="w-10 h-10 text-brand-sky" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          <a href="#donate" className="relative z-10 shrink-0 inline-flex items-center gap-3 h-[52px] px-7 rounded-full bg-white text-brand-navy font-poppins font-bold text-[14px] hover:-translate-y-1 transition-transform shadow-sm">
+            Donate Now
+            <span className="w-7 h-7 bg-brand-sky-soft rounded-full flex items-center justify-center">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </div>
-          </div>
-
-          <div className="bg-brand-sky-soft border border-brand-sky/20 rounded-[32px] p-8 md:p-10 flex items-center justify-between shadow-sm hover:shadow-lg transition-shadow">
-            <div>
-              <h3 className="font-poppins text-[40px] md:text-[48px] font-black text-brand-sky mb-1 leading-none tracking-tighter">
-                6
-              </h3>
-              <span className="font-inter text-[15px] font-bold text-brand-navy/70 leading-tight block max-w-[150px]">
-                Belizean districts fully covered.
-              </span>
-            </div>
-            <div className="w-20 h-20 bg-white shadow-sm rounded-full flex items-center justify-center">
-              <svg className="w-10 h-10 text-brand-sky" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-              </svg>
-            </div>
-          </div>
-
+            </span>
+          </a>
         </div>
 
       </div>

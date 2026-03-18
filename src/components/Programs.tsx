@@ -49,7 +49,7 @@ const Programs = () => {
 
 
       <div className="relative z-10 text-center mb-16 md:mb-20 fade-in max-w-[700px] px-6">
-        <span className="text-brand-navy font-poppins font-bold uppercase tracking-widest text-[13px] mb-4 block inline-flex items-center gap-2 bg-brand-sky-soft px-4 py-1.5 rounded-full">
+        <span className="text-brand-navy font-poppins font-bold uppercase tracking-widest text-[13px] mb-4 flex w-fit mx-auto items-center gap-2 bg-brand-sky-soft px-4 py-1.5 rounded-full">
           <span className="w-2 h-2 rounded-full bg-brand-sky animate-pulse"></span>
           What We Do
         </span>

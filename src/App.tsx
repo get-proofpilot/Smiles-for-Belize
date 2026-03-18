@@ -5,6 +5,8 @@ import ImpactStats from './components/ImpactStats';
 import Ambassador from './components/Ambassador';
 import WhereWeWork from './components/WhereWeWork';
 import Testimonials from './components/Testimonials';
+import MissionGallery from './components/MissionGallery';
+import WhySupport from './components/WhySupport';
 import DonateCTA from './components/DonateCTA';
 import Footer from './components/Footer';
 
@@ -15,9 +17,11 @@ function App() {
       <Hero />
       <Programs />
       <ImpactStats />
+      <MissionGallery />
       <Ambassador />
       <WhereWeWork />
       <Testimonials />
+      <WhySupport />
       <DonateCTA />
       <Footer />
     </>
