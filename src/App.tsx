@@ -7,7 +7,6 @@ import WhereWeWork from './components/WhereWeWork';
 import Testimonials from './components/Testimonials';
 import MissionGallery from './components/MissionGallery';
 import WhySupport from './components/WhySupport';
-import DonateCTA from './components/DonateCTA';
 import Footer from './components/Footer';
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
       <WhereWeWork />
       <Testimonials />
       <WhySupport />
-      <DonateCTA />
       <Footer />
     </>
   );

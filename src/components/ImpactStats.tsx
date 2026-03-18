@@ -152,8 +152,8 @@ const ImpactStats = () => {
             </p>
           </div>
 
-          <a href="#donate" className="relative z-10 shrink-0 inline-flex items-center gap-3 h-[52px] px-7 rounded-full bg-white text-brand-navy font-poppins font-bold text-[14px] hover:-translate-y-1 transition-transform shadow-sm">
-            Donate Now
+          <a href="#ambassador" className="relative z-10 shrink-0 inline-flex items-center gap-3 h-[52px] px-7 rounded-full bg-white text-brand-navy font-poppins font-bold text-[14px] hover:-translate-y-1 transition-transform shadow-sm">
+            Get Involved
             <span className="w-7 h-7 bg-brand-sky-soft rounded-full flex items-center justify-center">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />

@@ -6,22 +6,6 @@ const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen brand-bg-gradient flex items-center pt-28 pb-20 overflow-hidden">
 
-      {/* Monochrome Line-Art Background Decorations */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <svg className="absolute -left-6 top-[18%] w-[180px] h-[220px] -rotate-12 opacity-[0.12]" viewBox="0 0 100 120" fill="none" stroke="var(--color-brand-navy)" strokeWidth="1.5">
-          <path d="M30,10 C10,10 5,35 15,55 C20,70 25,100 30,115 C33,108 38,80 40,65 C42,55 45,50 50,50 C55,50 58,55 60,65 C62,80 67,108 70,115 C75,100 80,70 85,55 C95,35 90,10 70,10 C60,12 55,18 50,18 C45,18 40,12 30,10Z"/>
-        </svg>
-        <svg className="absolute right-[8%] top-[8%] w-[120px] h-[120px] rotate-[25deg] opacity-[0.10]" viewBox="0 0 80 160" fill="none" stroke="var(--color-brand-navy)" strokeWidth="1.5" strokeLinecap="round">
-          <circle cx="40" cy="30" r="22"/>
-          <line x1="40" y1="52" x2="40" y2="155"/>
-        </svg>
-        <svg className="absolute left-[10%] bottom-[15%] w-[200px] h-[60px] -rotate-[20deg] opacity-[0.08]" viewBox="0 0 200 40" fill="none" stroke="var(--color-brand-navy)" strokeWidth="1.5" strokeLinecap="round">
-          <rect x="2" y="10" width="60" height="20" rx="4"/>
-          <line x1="62" y1="20" x2="195" y2="20"/>
-          <circle cx="195" cy="20" r="3"/>
-        </svg>
-      </div>
-
       <div className="relative z-20 max-w-[1240px] mx-auto px-6 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
         {/* Left — Text & CTAs */}
@@ -41,8 +25,8 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 animate-fade-in-up delay-200">
-            <a href="#donate" className="inline-flex items-center gap-3 h-[56px] px-8 rounded-full bg-brand-navy text-white font-poppins font-bold text-[15px] shadow-[0_12px_24px_rgba(34,72,136,0.2)] hover:-translate-y-1 transition-transform">
-              Support Our Mission
+            <a href="#impact" className="inline-flex items-center gap-3 h-[56px] px-8 rounded-full bg-brand-navy text-white font-poppins font-bold text-[15px] shadow-[0_12px_24px_rgba(34,72,136,0.2)] hover:-translate-y-1 transition-transform">
+              See Our Impact
               <span className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-navy">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
