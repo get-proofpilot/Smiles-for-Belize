@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 const slides = [
   {
     img: 'ambassador-examining-child.jpg',
-    headline: '1,200 Children Treated with Comprehensive Care',
+    headline: '6,000+ Children Treated with Comprehensive Care',
     desc: 'From routine cleanings to emergency extractions, we provide free dental care to children who would otherwise go without.',
   },
   {
@@ -118,7 +118,7 @@ const ImpactStats = () => {
               </svg>
             </div>
             <h3 className="font-poppins text-[44px] font-black text-brand-navy leading-none tracking-tighter mb-1">
-              1,200+
+              6,000+
             </h3>
             <span className="font-inter text-[14px] text-brand-navy/50">
               Children treated with comprehensive care.
