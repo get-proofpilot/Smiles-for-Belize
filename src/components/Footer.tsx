@@ -54,8 +54,19 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Smiles for Belize. All rights reserved.
           </p>
           <div className="flex gap-4">
-             <a href="#" className="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-sky flex items-center justify-center text-white transition-colors"><span className="sr-only">Facebook</span>FB</a>
-             <a href="#" className="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-sky flex items-center justify-center text-white transition-colors"><span className="sr-only">Instagram</span>IG</a>
+             <a
+               href="https://www.instagram.com/smiles4belize/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Follow Smiles for Belize on Instagram"
+               className="w-10 h-10 rounded-full bg-white/5 hover:bg-brand-sky flex items-center justify-center text-white transition-colors"
+             >
+               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                 <rect x="3" y="3" width="18" height="18" rx="5" />
+                 <circle cx="12" cy="12" r="4" />
+                 <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+               </svg>
+             </a>
           </div>
         </div>
       </div>
